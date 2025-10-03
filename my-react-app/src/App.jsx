@@ -1,14 +1,17 @@
 import React from 'react'
+import NavBar from './components/NavBar.jsx'
+import Hero from './components/Hero.jsx'
 
 
 
 function App() {
  return (
-   <>
-     <div className="bg-red-500">
-       <p>Hello</p>
-      </div>
-    </>
+   <div>
+    
+    <NavBar />
+
+    <Hero />
+    </div>
  )
 }
      

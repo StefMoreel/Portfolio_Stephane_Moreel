@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-black : #1F242D;
+  --color-yellow : #C8DD0A;
+  --color-blue : #00EEFF;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+
+  --text-18: 18px;
+
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+}
