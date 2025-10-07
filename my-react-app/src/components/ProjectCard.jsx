@@ -12,7 +12,7 @@ function ProjectCard({imgProject, titleProject, descriptionProject, tags, urlPro
     }
 const buttonText = isCollapsed ? 'Moins de détails' : 'Plus de détails';
     return ( 
-        <div className="bg-white w-72 m-4 rounded-lg shadow-lg text-center">
+        <div className="bg-white mx-8 md:mx-0 mt-8 rounded-lg shadow-lg text-center">
             <div className="flex flex-col justify-center items-center w-full"> 
                 <div className="w-full h-48 overflow-hidden rounded-t-lg">
                     <img src={imgProject} alt="Photo du projet"/>
