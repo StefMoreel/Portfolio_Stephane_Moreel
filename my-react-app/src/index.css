@@ -4,6 +4,7 @@
   --color-black : #1F242D;
   --color-yellow : #C8DD0A;
   --color-blue : #00EEFF;
+  --color-grey : #657693;
 
   --font-montserrat: 'Montserrat', sans-serif;
 
@@ -12,4 +13,22 @@
   --breakpoint-mobile: 375px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1440px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+#about p, #softskills p{
+  font-size: 13px;
+  margin: 1.25rem 2rem 0;
 }
