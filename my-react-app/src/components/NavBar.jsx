@@ -1,4 +1,8 @@
 import { useState } from "react";
+import Links from './Links.jsx';
+import { HiMail } from 'react-icons/hi';
+import { FaLinkedinIn } from 'react-icons/fa6';
+import { FaGithub } from 'react-icons/fa6';
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +21,14 @@ const NavLinks = [
 
 
     return (
-      <section>  
-        <nav className="bg-black text-white p-10 pb-2 max-w-10xl">
+      <section className="bg-black flex justify-between items-center">  
+        <nav className="bg-black text-white p-5 max-w-10xl md:mx-20 md:p-10">
           {/* Desktop Menu */}
-          <div className="hidden md:flex justify-between items-center">
+          <div className="hidden md:flex justify-between">
             <ul className="flex space-x-6">
                 {NavLinks.map((link, index) => (
                 <li key={index}>
-                    <a href={link.href} className="hover:text-yellow text-18 font-montserrat">{link.name}</a>
+                    <a href={link.href} className="hover:text-yellow text-18 font-montserrat font-semibold">{link.name}</a>
                 </li>
 
               ))}
@@ -63,6 +67,23 @@ const NavLinks = [
             </div>
             )}
         </nav>
+        <div className='hidden flex-col justify-center gap-8 text-[32px] text-yellow mx-20 md:mx-30 md:flex md:flex-row'>
+                <Links 
+                    link="https://www.linkedin.com/in/stéphane-moreel-0a85a2119/"
+                    ariaLabel="Lien vers mon profil LinkedIn"
+                    icon={<FaLinkedinIn />}
+                />
+                <Links  
+                    link="https://www.github.com/StefMoreel/"
+                    ariaLabel="Lien vers mon profil GitHub"
+                    icon={<FaGithub />}
+                />
+                <Links  
+                    link="mailto:stef.ksp@gmail.com"
+                    ariaLabel="Lien pour m'envoyer un email"
+                    icon={<HiMail />}
+                />
+            </div>
       </section>  
     );
 }

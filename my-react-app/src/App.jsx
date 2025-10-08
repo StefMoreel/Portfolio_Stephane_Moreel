@@ -12,7 +12,7 @@ import Footer from './components/Footer.jsx'
 
 function App() {
  return (
-   <div className='bg-black text-white font-montserrat max-w-10xl mx-auto'>
+   <div className='text-white font-montserrat max-w-10xl mx-auto'>
     <NavBar />
     <Hero />
     <About />

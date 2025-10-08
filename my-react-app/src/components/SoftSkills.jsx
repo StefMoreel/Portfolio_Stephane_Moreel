@@ -3,13 +3,13 @@ import softSkillsData from '../data/softSkillsData.json';
 
 function SoftSkills() {
     return (
-        <section>
-            <div className="text-center mt-10 " id="softskills">
-                <h2 className="text-[24px] font-bold md:text-[32px] mt-4">Soft <span className="text-yellow">Skills</span></h2>
-                <p>Mon expérience en ressources humaines m’a appris à allier rigueur, écoute et collaboration, des qualités que j’applique aujourd’hui au développement full-stack.</p>
-                <p>Voici ce que je peux apporter à votre équipe :</p>
+        <section className='bg-black md:bg-gradient-yellow pt-10 md:py-10'>
+            <div className="text-center" id="softskills">
+                <h2 className="text-[24px] font-bold md:text-[32px] mt-4">Soft <span className="text-yellow md:text-white">Skills</span></h2>
+                <p className='text-[13px] font-semibold mt-5 mx-8 md:mx-48'>Mon expérience en ressources humaines m’a appris à allier rigueur, écoute et collaboration, des qualités que j’applique aujourd’hui au développement full-stack.</p>
+                <p className='text-[13px] font-semibold mt-5 mx-8 md:mx-48'>Voici ce que je peux apporter à votre équipe :</p>
             </div>
-            <div className="flex justify-center flex-wrap gap-6 mx-8 md:mx-28 mt-8 mb-8">
+            <div className="flex justify-center flex-wrap gap-6 mx-8 md:mx-14 mt-8">
                 {softSkillsData.map((skill) => (
                     <SoftSkillsCard
                         key={skill.id}

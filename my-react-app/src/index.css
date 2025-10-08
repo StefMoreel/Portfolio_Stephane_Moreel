@@ -15,6 +15,14 @@
   --breakpoint-desktop: 1440px;
 }
 
+@utility bg-gradient-yellow {
+  background-image: linear-gradient(90deg, var(--color-black) 0%, var(--color-yellow) 100%);
+}
+@utility bg-gradient-black {
+  background-image: linear-gradient(5deg, var(--color-grey) 0%, var(--color-black) 50%);
+}
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -28,7 +36,3 @@ h2 {
   }
 }
 
-#about p, #softskills p{
-  font-size: 13px;
-  margin: 1.25rem 2rem 0;
-}

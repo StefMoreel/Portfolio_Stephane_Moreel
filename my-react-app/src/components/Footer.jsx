@@ -1,11 +1,24 @@
+import { BiSolidUpArrowAlt } from 'react-icons/bi';
+
 function Footer() {
-    return ( 
-        <section>
-            <footer className="text-center p-4 border-t border-gray-700 mt-8">
-                <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Stéphane Moreel. Tous droits réservés.</p>
-            </footer>
-        </section> 
-     );
+  return (
+    <section className="bg-black">
+      <footer className="mx-auto max-w-7xl flex items-center justify-between p-4 border-t border-gray-700 md:mx-32">
+        <p className="text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} Stéphane Moreel. Tous droits réservés.
+        </p>
+
+        <a
+          href="#top"
+          aria-label="Revenir en haut"
+          className="inline-flex items-center justify-center p-2 ring-1 ring-inset ring-yellow text-gray-200 hover:bg-white/10 focus:outline-2 focus:outline-offset-2"
+          title="Haut de page"
+        >
+          <BiSolidUpArrowAlt className="size-5" aria-hidden="true" />
+        </a>
+      </footer>
+    </section>
+  )
 }
 
-export default Footer;
+export default Footer

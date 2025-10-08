@@ -5,8 +5,8 @@ import HtmlLogo from '../assets/logos/icons8-html-5-48.png';
 
 function Skills() {
     return ( 
-        <section className="mt-10">
-            <h2 className="text-[24px] font-bold md:text-[32px] mt-4 mb-10">Compétences <span className="text-yellow">Techniques</span></h2>
+        <section className="bg-black md:bg-gradient-black pt-10 md:py-10">
+            <h2 className="text-[24px] font-bold md:text-[32px] mt-4 mb-10">Compétences <span className="text-yellow md:text-white">Techniques</span></h2>
             <div className="flex flex-wrap md:flex-nowrap justify-center gap-8 md:mx-28">
             <SkillCard 
                 title="Front-End & Intégration"

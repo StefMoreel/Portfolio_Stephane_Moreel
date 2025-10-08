@@ -11,19 +11,19 @@ function Hero() {
     const pdfURL = '/public/CV_STEPHANE_MOREEL 092025 V2.pdf';
 
     return (
-        <section>
-            <div className='flex flex-col md:justify-around md:flex-row'>
-                <div className='order-2 flex justify-center flex-col text-center md:order-1 text-[32px] md:text-[60px] m-8'>
-                    <h1 className='font-bold'>Salut, je suis Stéphane</h1>
-                    <h2 className='md:text-[32px] mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h2>
+        <section className='bg-black pb-10'>
+            <div className='flex flex-col md:justify-around md:flex-row md:mx-36'>
+                <div className='order-2 flex justify-center flex-col text-center md:text-left md:order-1 text-[32px] md:text-[60px] m-8 md:m-0'>
+                    <h1 className='font-semibold md:text-4xl'>Salut, je suis Stéphane</h1>
+                    <h1 className='font-semibold text-2xl md:text-3xl mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h1>
                     <p className='text-[18px] mt-5'>De la paie au code : après 20 ans en ressources humaines, je me reconvertis dans le développement full-stack pour allier rigueur et créativité.</p>
                     <p className='text-[14px] italic mt-5'>Développeur full-stack en devenir, je combine mon expérience en gestion de projets et mon sens du collectif pour créer des applications performantes et centrées utilisateur. Musicien et pâtissier amateur, je crois que la passion et la précision font la différence – même dans le code !</p>
                 </div>
-                <div className='order-1 flex justify-center'>
-                    <img className='w-[91px] h-[118px] md:w-[324px] md:h-[435px] rounded-lg border-2 border-yellow'src={ HeroPhoto } alt="Photo de Stéphane Moreel" />
+                <div className='order-1 flex justify-center md:p-20'>
+                    <img className='w-[91px] h-[118px] md:w-auto md:h-auto rounded-xl border-2 border-yellow'src={ HeroPhoto } alt="Photo de Stéphane Moreel" />
                 </div>
             </div>
-            <div>
+            <div className='md:flex md:justify-center md:gap-10 mt-4'>
                 {/* Bouton pour télécharger/prévisualiser le CV */}
                 <Button
                     pdfURL={pdfURL}
@@ -38,7 +38,7 @@ function Hero() {
                     icon={<HiMail className='size-6' />}
                 />
             </div>
-            <div className='flex justify-center gap-8 text-[32px] mt-10 text-yellow'>
+            <div className='flex justify-center gap-8 text-[32px] mt-10 text-yellow md:hidden'>
                 <Links 
                     link="https://www.linkedin.com/in/stéphane-moreel-0a85a2119/"
                     ariaLabel="Lien vers mon profil LinkedIn"
