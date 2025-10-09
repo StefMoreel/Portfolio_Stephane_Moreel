@@ -8,7 +8,7 @@ function Projects() {
             <div>
                 <h2 className="text-[24px] font-bold md:text-[32px] mt-4">Mes <span className="text-yellow md:text-white">Projets</span></h2>
             </div >
-            <div className="flex flex-wrap md:flex-nowrap justify-center gap-4 md:mx-16">
+            <div className="flex flex-wrap md:flex-nowrap justify-center gap-10 md:mx-16 lg:mx-60 mt-8 lg:my-20">
                 <ProjectCard 
                     imgProject={KasaProject}
                     titleProject="Kasa"

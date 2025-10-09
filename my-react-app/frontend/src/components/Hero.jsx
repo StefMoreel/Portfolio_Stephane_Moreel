@@ -12,15 +12,15 @@ function Hero() {
 
     return (
         <section className='bg-black pb-10'>
-            <div className='flex flex-col md:justify-around md:flex-row md:mx-36'>
-                <div className='order-2 flex justify-center flex-col text-center md:text-left md:order-1 text-[32px] md:text-[60px] m-8 md:m-0'>
-                    <h1 className='font-semibold md:text-4xl'>Salut, je suis Stéphane</h1>
-                    <h1 className='font-semibold text-2xl md:text-3xl mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h1>
-                    <p className='text-[18px] mt-5'>De la paie au code : après 20 ans en ressources humaines, je me reconvertis dans le développement full-stack pour allier rigueur et créativité.</p>
-                    <p className='text-[14px] italic mt-5'>Développeur full-stack en devenir, je combine mon expérience en gestion de projets et mon sens du collectif pour créer des applications performantes et centrées utilisateur. Musicien et pâtissier amateur, je crois que la passion et la précision font la différence – même dans le code !</p>
+            <div className='flex flex-col md:justify-around lg:flex-row md:mx-50'>
+                <div className='order-2 flex justify-center flex-col text-center lg:text-left lg:order-1 m-8'>
+                    <h1 className='font-semibold md:text-6xl'>Salut, je suis Stéphane</h1>
+                    <h1 className='font-semibold text-2xl md:text-4xl mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h1>
+                    <p className='text-[18px] md:text-2xl mt-5'>De la paie au code : après 20 ans en ressources humaines, je me reconvertis dans le développement full-stack pour allier rigueur et créativité.</p>
+                    <p className='text-[14px] md:text-[18px] italic mt-5'>Développeur full-stack en devenir, je combine mon expérience en gestion de projets et mon sens du collectif pour créer des applications performantes et centrées utilisateur. Musicien et pâtissier amateur, je crois que la passion et la précision font la différence – même dans le code !</p>
                 </div>
-                <div className='order-1 flex justify-center md:p-20'>
-                    <img className='w-[91px] h-[118px] md:w-auto md:h-auto rounded-xl border-2 border-yellow'src={ HeroPhoto } alt="Photo de Stéphane Moreel" />
+                <div className='order-1 flex justify-center xl:p-30 md:p-10'>
+                    <img className='w-[91px] h-[118px] md:min-w-[234px] md:h-[317px] rounded-xl border-2 border-yellow'src={ HeroPhoto } alt="Photo de Stéphane Moreel" />
                 </div>
             </div>
             <div className='md:flex md:justify-center md:gap-10 mt-4'>
