@@ -3,7 +3,7 @@ function SkillCard({title, subtitle, description, icons}) {
         <div className="flex flex-col justify-center bg-gradient-to-b from-black to-grey md:bg-none md:bg-black p-3 mx-8 md:mx-0 rounded-lg shadow-lg text-center border-2 border-yellow hover:border-blue transition duration-300">
             <h3 className="text-[14px] font-semibold mb-2 lg:text-3xl lg:mb-6">{title}</h3>
             <h4 className="text-[12px] mb-2 text-yellow font-bold lg:text-xl lg:mb-6">{subtitle}</h4>
-            <div className="flex justify-center">
+            <div className="flex flex-wrap justify-center gap-8">
                 {icons.map((icon, index) => (
                     <img 
                         key={index} 
