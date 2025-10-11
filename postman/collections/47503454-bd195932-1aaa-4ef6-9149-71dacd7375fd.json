@@ -4,5 +4,18 @@
 		"name": "Portfolio",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "New Request",
+			"id": "47503454-492eab61-b70c-4745-8c99-50bee3b2b3de",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
 }
