@@ -51,7 +51,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4000/api/softskills",
+					"raw": "http://localhost:4000/api/softskills/68ecf98e9138cf5b94f42262",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -59,7 +59,8 @@
 					"port": "4000",
 					"path": [
 						"api",
-						"softskills"
+						"softskills",
+						"68ecf98e9138cf5b94f42262"
 					]
 				}
 			},
