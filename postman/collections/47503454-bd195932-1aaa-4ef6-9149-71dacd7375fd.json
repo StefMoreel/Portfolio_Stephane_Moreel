@@ -18,7 +18,7 @@
 			"response": []
 		},
 		{
-			"name": "skills Copy",
+			"name": "skills/:id",
 			"id": "47503454-f1a4d133-f773-4887-b4aa-eb61c1da79aa",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
