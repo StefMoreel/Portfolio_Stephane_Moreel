@@ -18,6 +18,18 @@
 			"response": []
 		},
 		{
+			"name": "skills Copy",
+			"id": "47503454-7fabc454-43d5-47cb-9bab-d5f09fef8992",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
 			"name": "skills/:id",
 			"id": "47503454-f1a4d133-f773-4887-b4aa-eb61c1da79aa",
 			"protocolProfileBehavior": {
