@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
+			"name": "skills",
 			"id": "47503454-492eab61-b70c-4745-8c99-50bee3b2b3de",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
