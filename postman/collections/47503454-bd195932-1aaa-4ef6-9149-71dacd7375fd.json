@@ -42,6 +42,30 @@
 			"response": []
 		},
 		{
+			"name": "soft skills Copy",
+			"id": "47503454-1fa83590-dbd1-427e-87da-317a6904f988",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/softskills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"softskills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "skills/:id",
 			"id": "47503454-f1a4d133-f773-4887-b4aa-eb61c1da79aa",
 			"protocolProfileBehavior": {
