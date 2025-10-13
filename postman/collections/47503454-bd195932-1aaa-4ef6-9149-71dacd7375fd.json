@@ -42,7 +42,7 @@
 			"response": []
 		},
 		{
-			"name": "soft skills Copy",
+			"name": "soft skills/:id",
 			"id": "47503454-1fa83590-dbd1-427e-87da-317a6904f988",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
