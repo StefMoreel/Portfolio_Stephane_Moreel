@@ -24,20 +24,30 @@
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "New Request",
-			"id": "47503454-f640e433-f10f-497b-876f-d34987c3f507",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"logos\": [\r\n    { \"publicId\": \"nodejs_dknldq\", \"alt\": \"Node\" }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/api/skills/68e922e19138cf5b94f42258",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"api",
+						"skills",
+						"68e922e19138cf5b94f42258"
+					]
+				}
 			},
 			"response": []
 		}
