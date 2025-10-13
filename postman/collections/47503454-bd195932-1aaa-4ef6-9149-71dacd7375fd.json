@@ -159,7 +159,7 @@
 			"response": []
 		},
 		{
-			"name": "skill/updateSoftSkill (add softskill)",
+			"name": "softskill/updateSoftSkill (add softskill)",
 			"id": "47503454-12b3a0fc-58ea-41b5-bbd9-97898cfd7927",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
