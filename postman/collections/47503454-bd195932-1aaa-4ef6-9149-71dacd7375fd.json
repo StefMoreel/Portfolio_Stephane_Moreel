@@ -28,7 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"logos\": [\r\n    { \"publicId\": \"nodejs_dknldq\", \"alt\": \"Node\" }\r\n  ]\r\n}",
+					"raw": "{ \"logos\":[\r\n    {\"publicId\":\"html5_beuo7f\",\"alt\":\"HTML5\",\"_id\":\"68ecbf788f47d9a36a869e24\"},\r\n    {\"publicId\":\"Css3_cjrhkl\",\"alt\":\"CSS3\",\"_id\":\"68ecbf788f47d9a36a869e25\"},\r\n    {\"publicId\":\"javascript_iultyv\",\"alt\":\"Javascript\",\"_id\":\"68ecbf788f47d9a36a869e26\"},\r\n    {\"publicId\":\"tailwindcss_zatiua\",\"alt\":\"Tailwind\",\"_id\":\"68ecbc0c7095db4bdf2cacc2\"},\r\n    {\"publicId\":\"React_mbmnsi\",\"alt\":\"React\",\"_id\":\"68ecbfeb8f47d9a36a869e44\"}]\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -36,16 +36,22 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5174/api/skills/68e922e19138cf5b94f42258",
+					"raw": "http://localhost:4000/api/skills/68e922e19138cf5b94f42258?replace=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5174",
+					"port": "4000",
 					"path": [
 						"api",
 						"skills",
 						"68e922e19138cf5b94f42258"
+					],
+					"query": [
+						{
+							"key": "replace",
+							"value": "1"
+						}
 					]
 				}
 			},
