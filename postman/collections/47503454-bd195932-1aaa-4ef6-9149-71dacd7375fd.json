@@ -30,7 +30,7 @@
 			"response": []
 		},
 		{
-			"name": "skill/updateskill (delete 1 logo)",
+			"name": "skill/updateskill (delete logo)",
 			"id": "47503454-b8e7522b-c35d-4ac7-85d2-2c1ba0018f54",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
