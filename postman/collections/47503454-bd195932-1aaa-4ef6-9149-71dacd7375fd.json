@@ -70,7 +70,7 @@
 			"response": []
 		},
 		{
-			"name": "skill/updateskill (add logo) Copy",
+			"name": "skill/updateskill (add logo)",
 			"id": "47503454-3e9a6dbc-cfc8-49bf-9535-95a5da2affd4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
