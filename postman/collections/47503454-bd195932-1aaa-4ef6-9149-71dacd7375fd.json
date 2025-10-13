@@ -157,6 +157,46 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "skill/updateskill (add logo) Copy",
+			"id": "47503454-12b3a0fc-58ea-41b5-bbd9-97898cfd7927",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"logos\":[\r\n    {\"publicId\":\"html5_beuo7f\",\"alt\":\"HTML5\",\"_id\":\"68ecbf788f47d9a36a869e24\"},\r\n    {\"publicId\":\"Css3_cjrhkl\",\"alt\":\"CSS3\",\"_id\":\"68ecbf788f47d9a36a869e25\"},\r\n    {\"publicId\":\"javascript_iultyv\",\"alt\":\"Javascript\",\"_id\":\"68ecbf788f47d9a36a869e26\"},\r\n    {\"publicId\":\"tailwindcss_zatiua\",\"alt\":\"Tailwind\",\"_id\":\"68ecbc0c7095db4bdf2cacc2\"},\r\n    {\"publicId\":\"React_mbmnsi\",\"alt\":\"React\",\"_id\":\"68ecbfeb8f47d9a36a869e44\"}]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/skills/68e922e19138cf5b94f42258?replace=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"skills",
+						"68e922e19138cf5b94f42258"
+					],
+					"query": [
+						{
+							"key": "replace",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
