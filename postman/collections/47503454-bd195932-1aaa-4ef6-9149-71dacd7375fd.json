@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "47503454-bd195932-1aaa-4ef6-9149-71dacd7375fd",
+		"name": "Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "skills",
+			"id": "47503454-492eab61-b70c-4745-8c99-50bee3b2b3de",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "soft skills",
+			"id": "47503454-7fabc454-43d5-47cb-9bab-d5f09fef8992",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/softskills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"softskills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "soft skills/:id",
+			"id": "47503454-1fa83590-dbd1-427e-87da-317a6904f988",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/softskills/68ecf98e9138cf5b94f42262",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"softskills",
+						"68ecf98e9138cf5b94f42262"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "skills/:id",
+			"id": "47503454-f1a4d133-f773-4887-b4aa-eb61c1da79aa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "skill/updateskill (delete logo)",
+			"id": "47503454-b8e7522b-c35d-4ac7-85d2-2c1ba0018f54",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"logos\":[\r\n    {\"publicId\":\"html5_beuo7f\",\"alt\":\"HTML5\",\"_id\":\"68ecbf788f47d9a36a869e24\"},\r\n    {\"publicId\":\"Css3_cjrhkl\",\"alt\":\"CSS3\",\"_id\":\"68ecbf788f47d9a36a869e25\"},\r\n    {\"publicId\":\"javascript_iultyv\",\"alt\":\"Javascript\",\"_id\":\"68ecbf788f47d9a36a869e26\"},\r\n    {\"publicId\":\"tailwindcss_zatiua\",\"alt\":\"Tailwind\",\"_id\":\"68ecbc0c7095db4bdf2cacc2\"},\r\n    {\"publicId\":\"React_mbmnsi\",\"alt\":\"React\",\"_id\":\"68ecbfeb8f47d9a36a869e44\"}]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/skills/68e922e19138cf5b94f42258?replace=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"skills",
+						"68e922e19138cf5b94f42258"
+					],
+					"query": [
+						{
+							"key": "replace",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "skill/updateskill (add logo)",
+			"id": "47503454-3e9a6dbc-cfc8-49bf-9535-95a5da2affd4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"logos\":[\r\n    {\"publicId\":\"html5_beuo7f\",\"alt\":\"HTML5\",\"_id\":\"68ecbf788f47d9a36a869e24\"},\r\n    {\"publicId\":\"Css3_cjrhkl\",\"alt\":\"CSS3\",\"_id\":\"68ecbf788f47d9a36a869e25\"},\r\n    {\"publicId\":\"javascript_iultyv\",\"alt\":\"Javascript\",\"_id\":\"68ecbf788f47d9a36a869e26\"},\r\n    {\"publicId\":\"tailwindcss_zatiua\",\"alt\":\"Tailwind\",\"_id\":\"68ecbc0c7095db4bdf2cacc2\"},\r\n    {\"publicId\":\"React_mbmnsi\",\"alt\":\"React\",\"_id\":\"68ecbfeb8f47d9a36a869e44\"}]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/skills/68e922e19138cf5b94f42258?replace=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"skills",
+						"68e922e19138cf5b94f42258"
+					],
+					"query": [
+						{
+							"key": "replace",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "softskill/updateSoftSkill (add softskill)",
+			"id": "47503454-12b3a0fc-58ea-41b5-bbd9-97898cfd7927",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  [\r\n    {\r\n        \"logo\": { \"publicId\": \"equipe_nchjgh\", \"alt\": \"Esprit d’équipe\" },\r\n        \"title\": \"Esprit d’équipe\",\r\n        \"description\": \"Collaborer avec des profils variés (designers, chefs de projet, autres développeurs).\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"analyse_lm3cyg\", \"alt\": \"Esprit d’analyse\" },\r\n        \"title\": \"Esprit d’analyse\",\r\n        \"description\": \"Résoudre des problèmes complexes et prendre des décisions éclairées.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"curiosité_gx06bq\", \"alt\": \"Curiosité\" },\r\n        \"title\": \"Curiosité\",\r\n        \"description\": \"Apprendre en continu et rester à l’affût des nouvelles technologies.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"adaptabilité_iciolt\", \"alt\": \"Adaptabilité\" },\r\n        \"title\": \"Adaptabilité\",\r\n        \"description\": \"Evoluer dans des environnements changeants et relever de nouveaux défis.\"\r\n    }\r\n  ]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/softskills/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"softskills",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projects",
+			"id": "47503454-920368a6-4062-4f29-81ec-330e6c3e50e9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  [\r\n    {\r\n        \"logo\": { \"publicId\": \"equipe_nchjgh\", \"alt\": \"Esprit d’équipe\" },\r\n        \"title\": \"Esprit d’équipe\",\r\n        \"description\": \"Collaborer avec des profils variés (designers, chefs de projet, autres développeurs).\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"analyse_lm3cyg\", \"alt\": \"Esprit d’analyse\" },\r\n        \"title\": \"Esprit d’analyse\",\r\n        \"description\": \"Résoudre des problèmes complexes et prendre des décisions éclairées.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"curiosité_gx06bq\", \"alt\": \"Curiosité\" },\r\n        \"title\": \"Curiosité\",\r\n        \"description\": \"Apprendre en continu et rester à l’affût des nouvelles technologies.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"adaptabilité_iciolt\", \"alt\": \"Adaptabilité\" },\r\n        \"title\": \"Adaptabilité\",\r\n        \"description\": \"Evoluer dans des environnements changeants et relever de nouveaux défis.\"\r\n    }\r\n  ]\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/projects/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"projects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projects",
+			"id": "47503454-24cd23f4-c35c-49db-83f3-22db212b0267",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  [\r\n    {\r\n        \"logo\": { \"publicId\": \"equipe_nchjgh\", \"alt\": \"Esprit d’équipe\" },\r\n        \"title\": \"Esprit d’équipe\",\r\n        \"description\": \"Collaborer avec des profils variés (designers, chefs de projet, autres développeurs).\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"analyse_lm3cyg\", \"alt\": \"Esprit d’analyse\" },\r\n        \"title\": \"Esprit d’analyse\",\r\n        \"description\": \"Résoudre des problèmes complexes et prendre des décisions éclairées.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"curiosité_gx06bq\", \"alt\": \"Curiosité\" },\r\n        \"title\": \"Curiosité\",\r\n        \"description\": \"Apprendre en continu et rester à l’affût des nouvelles technologies.\"\r\n    },\r\n    {\r\n        \"logo\": { \"publicId\": \"adaptabilité_iciolt\", \"alt\": \"Adaptabilité\" },\r\n        \"title\": \"Adaptabilité\",\r\n        \"description\": \"Evoluer dans des environnements changeants et relever de nouveaux défis.\"\r\n    }\r\n  ]\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/projects/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"projects",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
