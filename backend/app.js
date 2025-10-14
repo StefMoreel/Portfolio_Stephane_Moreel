@@ -93,10 +93,12 @@ app.use('/api', apiLimiter);
 const skillRoutes = require('./Routes/Skills.routes');
 const softSkillRoutes = require('./Routes/softSkills.routes');
 const projectRoutes = require('./Routes/projects.routes');
+const contactRoutes = require('./Routes/contact.routes');
 
 app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/softskills', softSkillRoutes);
+app.use('/api/contact', contactRoutes);
 
 
 // 8) 404
