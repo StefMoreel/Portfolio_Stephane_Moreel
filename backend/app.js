@@ -92,6 +92,9 @@ app.use('/api', apiLimiter);
 // 7) Routes
 const skillRoutes = require('./Routes/Skills.routes');
 const softSkillRoutes = require('./Routes/softSkills.routes');
+const projectRoutes = require('./Routes/projects.routes');
+
+app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/softskills', softSkillRoutes);
 
