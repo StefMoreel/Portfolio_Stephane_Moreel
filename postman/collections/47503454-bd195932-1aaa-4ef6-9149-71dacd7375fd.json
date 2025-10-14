@@ -222,7 +222,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "projects",
 			"id": "47503454-24cd23f4-c35c-49db-83f3-22db212b0267",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
