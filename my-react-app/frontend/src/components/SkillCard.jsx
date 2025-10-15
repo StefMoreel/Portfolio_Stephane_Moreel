@@ -52,7 +52,10 @@ function SkillCard({title, subtitle, description, icons}) {
                             size-10
                             md:size-10
                             lg:size-12
-                            xl:size-16"/>
+                            xl:size-16"
+                        loading="lazy"
+                        decoding="async"
+                    />  
                 ))}
             </div>                
             <p className="

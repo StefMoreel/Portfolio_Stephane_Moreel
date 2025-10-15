@@ -1,4 +1,3 @@
-import HeroPhoto from '../assets/photo_sm_portfolio.png';
 import { FaDownload } from 'react-icons/fa6';
 import { HiMail } from 'react-icons/hi';
 import { FaLinkedinIn } from 'react-icons/fa6';
@@ -9,6 +8,9 @@ import Links from './Links.jsx';
 
 function Hero() {
     const pdfURL = '/public/CV_STEPHANE_MOREEL 092025 V2.pdf';
+    const photoURL = "https://res.cloudinary.com/dp5ku1ihk/image/upload/v1760520215/photo_sm_portfolio_ztg9oc_k3ssqm.webp"
+    
+    
 
     return (
         <section className='bg-black pb-10'>
@@ -20,7 +22,7 @@ function Hero() {
                     <p className='text-[14px] md:text-[18px] italic mt-5'>Développeur full-stack en devenir, je combine mon expérience en gestion de projets et mon sens du collectif pour créer des applications performantes et centrées utilisateur. Musicien et pâtissier amateur, je crois que la passion et la précision font la différence – même dans le code !</p>
                 </div>
                 <div className='order-1 flex justify-center xl:p-30 md:p-10'>
-                    <img className='w-[91px] h-[118px] md:min-w-[234px] md:h-[317px] rounded-xl border-2 border-yellow'src={ HeroPhoto } alt="Photo de Stéphane Moreel" />
+                    <img className='md:min-w-[234px] md:h-[317px] rounded-xl border-2 border-yellow' src={photoURL} alt="Photo de Stéphane Moreel" width="91" height="118" loading="eager" decoding="async" fetchPriority="high"/>
                 </div>
             </div>
             <div className='md:flex md:justify-center md:gap-10 mt-4'>
