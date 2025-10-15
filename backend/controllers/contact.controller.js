@@ -1,5 +1,5 @@
 // backend/controllers/contact.controller.js
-const Contact = require('../models/contact.js');
+const Contact = require('../models/Contact.js');
 
 // petite regex email “raisonnable”
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
