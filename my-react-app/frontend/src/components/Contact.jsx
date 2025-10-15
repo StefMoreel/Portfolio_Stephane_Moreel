@@ -31,14 +31,14 @@ function Contact() {
             </div>
             <div className="mt-10 mx-8 md:mx-50 lg:mx-96">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
-                      <label hidden htmlFor="firstName">Prénom</label>
-                        <input value={state.firstName} onChange={e=>setState(s=>({...s, firstName:e.target.value}))} name="firstName" placeholder="Prénom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black"/>
-                      <label hidden htmlFor="lastName">Nom</label>  
-                        <input value={state.lastName}  onChange={e=>setState(s=>({...s, lastName:e.target.value}))}  name="lastName"  placeholder="Nom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
-                      <label hidden htmlFor="email">email</label>  
-                        <input value={state.email}     onChange={e=>setState(s=>({...s, email:e.target.value}))}     name="email"     type="email" placeholder="Votre email" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
-                      <label hidden htmlFor="message">message</label>
-                        <textarea value={state.message} onChange={e=>setState(s=>({...s, message:e.target.value}))} name="message" rows="5" placeholder="Votre message" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
+                      <label hidden id="firstNameLabel" htmlFor="firstName">Prénom</label>
+                        <input aria-labelledby="firstNameLabel" value={state.firstName} onChange={e=>setState(s=>({...s, firstName:e.target.value}))} name="firstName" placeholder="Prénom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black"/>
+                      <label hidden id="lastNameLabel" htmlFor="lastName">Nom</label>  
+                        <input aria-labelledby="lastNameLabel" value={state.lastName}  onChange={e=>setState(s=>({...s, lastName:e.target.value}))}  name="lastName"  placeholder="Nom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
+                      <label id="emailLabel" hidden htmlFor="email">email</label>  
+                        <input aria-labelledby="emailLabel" value={state.email}     onChange={e=>setState(s=>({...s, email:e.target.value}))}     name="email"     type="email" placeholder="Votre email" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
+                      <label id="messageLabel" hidden htmlFor="message">message</label>
+                        <textarea aria-labelledby="messageLabel" value={state.message} onChange={e=>setState(s=>({...s, message:e.target.value}))} name="message" rows="5" placeholder="Votre message" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
                     <button type="submit" disabled={status==='loading'} className="bg-gradient-to-b from-black to-yellow text-white py-2 px-4 rounded-full hover:font-bold">
                         {status === 'loading' ? 'Envoi…' : 'Envoyer'}
                     </button>
