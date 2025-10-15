@@ -7,7 +7,7 @@ import Links from './Links.jsx';
 
 
 function Hero() {
-    const pdfURL = '/public/CV_STEPHANE_MOREEL 092025 V2.pdf';
+    const pdfURL = '/CV_STEPHANE_MOREEL 092025 V2.pdf';
     const photoURL = "https://res.cloudinary.com/dp5ku1ihk/image/upload/v1760520215/photo_sm_portfolio_ztg9oc_k3ssqm.webp"
     
     
