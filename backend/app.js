@@ -46,24 +46,53 @@ app.use(helmet.contentSecurityPolicy({
   },
 }));
 
+app.use((req, res, next) => { 
+  if (req.headers.origin) console.log('[Origin]', req.headers.origin);
+  next();
+});
+
+
 // 2) CORS — filtre pour éviter undefined
 const WHITELIST = [
-  process.env.CLIENT_URL,     // ex: https://ton-front.vercel.app
-  'http://localhost:5174',
+  process.env.CLIENT_URL,        // ex: https://portfolio-stephane.vercel.app
+  'http://localhost:5174',       // Vite
 ].filter(Boolean);
+
+function isAllowed(origin) {
+  try {
+    const u = new URL(origin);           // ex: https://my-branch-123.vercel.app
+    const host = u.host;                 // my-branch-123.vercel.app
+    const proto = u.protocol;            // https:
+    // Autorise : exacts, sous-domaines vercel.app, localhost
+    const ok =
+      WHITELIST.includes(origin) ||
+      host.endsWith('.vercel.app') ||
+      host === 'localhost:5174';
+    // On n’autorise http que pour localhost
+    return ok && (proto === 'https:' || host.startsWith('localhost'));
+  } catch {
+    return false;
+  }
+}
 
 const corsOptions = {
   origin(origin, cb) {
-    if (!origin) return cb(null, true); // Postman/SSR
-    const ok = WHITELIST.some(o => o === origin || origin.endsWith('.vercel.app'));
-    return ok ? cb(null, true) : cb(new Error('Not allowed by CORS'));
+    // Autorise Postman/SSR (pas d’en-tête Origin)
+    if (!origin) return cb(null, true);
+    const ok = isAllowed(origin);
+    if (!ok) {
+      console.error('[CORS] Blocked origin:', origin); // ← log utile
+      return cb(new Error('Not allowed by CORS'));
+    }
+    return cb(null, true);
   },
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization','X-Requested-With'],
-  credentials: true,
+  credentials: true,                // mets à false si tu n’utilises pas de cookies cross-site
   optionsSuccessStatus: 204,
 };
 
+// Important : place CORS très tôt, avant rate-limit/sanitize/routes
 app.use(cors(corsOptions));
 
 
