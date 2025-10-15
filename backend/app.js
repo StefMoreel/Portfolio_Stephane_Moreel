@@ -64,7 +64,6 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-app.options('(.*)', cors(corsOptions)); // ← fix express 5
 app.use(cors(corsOptions));
 
 
