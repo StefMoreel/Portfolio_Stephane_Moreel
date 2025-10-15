@@ -31,7 +31,7 @@ function Projects() {
     return (
         <section className="bg-black md:bg-gradient-black pt-10 md:py-10" id="projects"> 
             <div>
-                <h2 className="text-[24px] font-bold mt-4">Mes <span className="text-yellow md:text-white">Projets</span></h2>
+                <h3 className="text-[24px] font-bold mt-4">Mes <span className="text-yellow md:text-white">Projets</span></h3>
             </div >
             <div className="flex flex-wrap lg:flex-nowrap justify-center gap-10 md:mx-16 mt-8 lg:my-10 lg:mx-20">
             

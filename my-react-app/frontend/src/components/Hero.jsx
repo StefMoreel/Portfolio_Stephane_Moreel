@@ -17,7 +17,7 @@ function Hero() {
             <div className='flex flex-col md:justify-around lg:flex-row md:mx-50'>
                 <div className='order-2 flex justify-center flex-col text-center lg:text-left lg:order-1 m-8'>
                     <h1 className='font-semibold md:text-6xl'>Salut, je suis Stéphane</h1>
-                    <h1 className='font-semibold text-2xl md:text-4xl mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h1>
+                    <h2 className='font-semibold text-2xl md:text-4xl mt-4'>Développeur <span className='text-yellow'>Full-Stack</span></h2>
                     <p className='text-[18px] md:text-2xl mt-5'>De la paie au code : après 20 ans en ressources humaines, je me reconvertis dans le développement full-stack pour allier rigueur et créativité.</p>
                     <p className='text-[14px] md:text-[18px] italic mt-5'>Développeur full-stack en devenir, je combine mon expérience en gestion de projets et mon sens du collectif pour créer des applications performantes et centrées utilisateur. Musicien et pâtissier amateur, je crois que la passion et la précision font la différence – même dans le code !</p>
                 </div>

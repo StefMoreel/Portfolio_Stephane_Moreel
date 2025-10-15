@@ -41,9 +41,9 @@ function SoftSkills() {
   return (
     <section className="bg-black md:bg-gradient-yellow pt-10 md:py-10">
       <div className="text-center" id="softskills">
-        <h2 className="text-[24px] font-bold md:text-[32px] mt-4">
+        <h3 className="text-[24px] font-bold md:text-[32px] mt-4">
           Soft <span className="text-yellow md:text-white">Skills</span>
-        </h2>
+        </h3>
         <p className="text-[13px] md:text-xl lg:text font-semibold mt-5 mx-8 md:mx-48 lg:mx-50 xl:mx-100">
           Mon expérience en ressources humaines m’a appris à allier rigueur, écoute et collaboration, des qualités
           que j’applique aujourd’hui au développement full-stack.

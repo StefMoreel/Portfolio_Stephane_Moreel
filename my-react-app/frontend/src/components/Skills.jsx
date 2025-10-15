@@ -22,9 +22,9 @@ export default function Skills() {
 
   return (
     <section className="bg-black md:bg-gradient-black pt-10 md:py-10 lg:py-20">
-      <h2 className="text-[24px] font-bold md:text-[32px] mt-4 mb-10">
+      <h3 className="text-[24px] font-bold md:text-[32px] mt-4 mb-10">
         Compétences <span className="text-yellow md:text-white">Techniques</span>
-      </h2>
+      </h3>
 
       <div className="flex flex-wrap md:flex-nowrap justify-center gap-8 md:mx-20 xl:mx-30">
         {skills.map((s) => (

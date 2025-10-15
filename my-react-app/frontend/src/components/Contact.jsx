@@ -27,7 +27,7 @@ function Contact() {
     return ( 
         <section className="bg-black md:bg-gradient-yellow py-10" id="contact">
             <div>
-                <h2 className="text-[24px] font-bold md:text-[32px] ">Contactez- <span className="text-yellow md:text-white">Moi</span></h2>
+                <h3 className="text-[24px] font-bold md:text-[32px] ">Contactez- <span className="text-yellow md:text-white">Moi</span></h3>
             </div>
             <div className="mt-10 mx-8 md:mx-50 lg:mx-[500px]">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -99,7 +99,7 @@ function Contact() {
                 </form>
 
             </div>
-            <h2 className="text-center text-[16px] lg:text-2xl font-bold m-4 lg:m-10">Ou contactez-<span className="text-yellow">moi </span>sur</h2>
+            <h3 className="text-center text-[16px] lg:text-2xl font-bold m-4 lg:m-10">Ou contactez-<span className="text-yellow">moi </span>sur</h3>
             <div className='flex justify-center gap-8 text-[32px] lg:text-6xl text-white'>
                 <Links 
                     link="https://www.linkedin.com/in/stéphane-moreel-0a85a2119/"
