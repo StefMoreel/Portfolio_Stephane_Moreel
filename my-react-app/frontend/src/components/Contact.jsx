@@ -29,7 +29,7 @@ function Contact() {
             <div>
                 <h2 className="text-[24px] font-bold md:text-[32px] ">Contactez- <span className="text-yellow md:text-white">Moi</span></h2>
             </div>
-            <div className="mt-10 mx-8 md:mx-50 lg:mx-96">
+            <div className="mt-10 mx-8 md:mx-50 lg:mx-[500px]">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
                       <label hidden id="firstNameLabel" htmlFor="firstName">Prénom</label>
                         <input aria-labelledby="firstNameLabel" value={state.firstName} onChange={e=>setState(s=>({...s, firstName:e.target.value}))} name="firstName" placeholder="Prénom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black"/>
@@ -39,8 +39,8 @@ function Contact() {
                         <input aria-labelledby="emailLabel" value={state.email}     onChange={e=>setState(s=>({...s, email:e.target.value}))}     name="email"     type="email" placeholder="Votre email" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
                       <label id="messageLabel" hidden htmlFor="message">message</label>
                         <textarea aria-labelledby="messageLabel" value={state.message} onChange={e=>setState(s=>({...s, message:e.target.value}))} name="message" rows="5" placeholder="Votre message" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
-                    <button type="submit" disabled={status==='loading'} className="bg-gradient-to-b from-black to-yellow text-white py-2 px-4 rounded-full hover:font-bold">
-                        {status === 'loading' ? 'Envoi…' : 'Envoyer'}
+                    <button type="submit" disabled={status==='loading'} className="bg-gradient-to-b from-black to-yellow text-white text-xl py-2 px-4 rounded-full hover:font-bold lg:mx-50 h-[50px]">
+                        {status === 'loading' && <span>Envoi en cours...</span>}ENVOYER
                     </button>
                     {status === 'success' && <p className="text-green-400">Merci, votre message a bien été envoyé.</p>}
                     {status === 'error'   && <p className="text-red-400">Oups, une erreur est survenue.</p>}
