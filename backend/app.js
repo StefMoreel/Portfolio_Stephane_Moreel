@@ -48,27 +48,25 @@ app.use(helmet.contentSecurityPolicy({
 
 // 2) CORS — filtre pour éviter undefined
 const WHITELIST = [
-  process.env.CLIENT_URL,         // ex: https://portfolio-stephane.vercel.app
-  'http://localhost:5174',        // Vite dev
+  process.env.CLIENT_URL,     // ex: https://ton-front.vercel.app
+  'http://localhost:5174',
 ].filter(Boolean);
 
-// Origin callback: renvoie exactement l’origine autorisée
 const corsOptions = {
   origin(origin, cb) {
-    // Autoriser Postman/SSR (pas d’en-tête Origin)
-    if (!origin) return cb(null, true);
+    if (!origin) return cb(null, true); // Postman/SSR
     const ok = WHITELIST.some(o => o === origin || origin.endsWith('.vercel.app'));
     return ok ? cb(null, true) : cb(new Error('Not allowed by CORS'));
   },
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization','X-Requested-With'],
-  credentials: false,
+  credentials: true,
   optionsSuccessStatus: 204,
 };
 
-// IMPORTANT : gérer le pré-vol partout
-app.options('*', cors(corsOptions));
+app.options('(.*)', cors(corsOptions)); // ← fix express 5
 app.use(cors(corsOptions));
+
 
 // 3) Sanitize / XSS
 //app.use(mongoSanitize());
