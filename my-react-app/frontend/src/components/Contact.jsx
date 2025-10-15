@@ -31,13 +31,13 @@ function Contact() {
             </div>
             <div className="mt-10 mx-8 md:mx-50 lg:mx-96">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
-                      <label htmlFor="firstName"></label>
+                      <label hidden htmlFor="firstName">Prénom</label>
                         <input value={state.firstName} onChange={e=>setState(s=>({...s, firstName:e.target.value}))} name="firstName" placeholder="Prénom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black"/>
-                      <label htmlFor="lastName"></label>  
+                      <label hidden htmlFor="lastName">Nom</label>  
                         <input value={state.lastName}  onChange={e=>setState(s=>({...s, lastName:e.target.value}))}  name="lastName"  placeholder="Nom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
-                      <label htmlFor="email"></label>  
+                      <label hidden htmlFor="email">email</label>  
                         <input value={state.email}     onChange={e=>setState(s=>({...s, email:e.target.value}))}     name="email"     type="email" placeholder="Votre email" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
-                      <label htmlFor="message"></label>
+                      <label hidden htmlFor="message">message</label>
                         <textarea value={state.message} onChange={e=>setState(s=>({...s, message:e.target.value}))} name="message" rows="5" placeholder="Votre message" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
                     <button type="submit" disabled={status==='loading'} className="bg-gradient-to-b from-black to-yellow text-white py-2 px-4 rounded-full hover:font-bold">
                         {status === 'loading' ? 'Envoi…' : 'Envoyer'}
