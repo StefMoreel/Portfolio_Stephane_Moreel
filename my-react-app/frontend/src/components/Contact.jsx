@@ -31,9 +31,13 @@ function Contact() {
             </div>
             <div className="mt-10 mx-8 md:mx-50 lg:mx-96">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
+                      <label htmlFor="firstName"></label>
                         <input value={state.firstName} onChange={e=>setState(s=>({...s, firstName:e.target.value}))} name="firstName" placeholder="Prénom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black"/>
+                      <label htmlFor="lastName"></label>  
                         <input value={state.lastName}  onChange={e=>setState(s=>({...s, lastName:e.target.value}))}  name="lastName"  placeholder="Nom" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
+                      <label htmlFor="email"></label>  
                         <input value={state.email}     onChange={e=>setState(s=>({...s, email:e.target.value}))}     name="email"     type="email" placeholder="Votre email" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
+                      <label htmlFor="message"></label>
                         <textarea value={state.message} onChange={e=>setState(s=>({...s, message:e.target.value}))} name="message" rows="5" placeholder="Votre message" required className="font-bold border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue md:bg-black" />
                     <button type="submit" disabled={status==='loading'} className="bg-gradient-to-b from-black to-yellow text-white py-2 px-4 rounded-full hover:font-bold">
                         {status === 'loading' ? 'Envoi…' : 'Envoyer'}
@@ -42,7 +46,7 @@ function Contact() {
                     {status === 'error'   && <p className="text-red-400">Oups, une erreur est survenue.</p>}
                 </form>
             </div>
-            <p className="text-center text-[16px] lg:text-2xl font-bold m-4 lg:m-10">Ou contactez-<span className="text-yellow">moi </span>sur</p>
+            <h2 className="text-center text-[16px] lg:text-2xl font-bold m-4 lg:m-10">Ou contactez-<span className="text-yellow">moi </span>sur</h2>
             <div className='flex justify-center gap-8 text-[32px] lg:text-6xl text-white'>
                 <Links 
                     link="https://www.linkedin.com/in/stéphane-moreel-0a85a2119/"
