@@ -19,16 +19,16 @@ function SolfSkillCard({icon, title, description}) {
             text-center 
             hover:border-2 border-blue transition duration-300">
             {icon}
-            <h3 className="
-                text-[12px] 
-                md:text-xl
-                lg:text-2xl 
-                font-semibold 
-                mb-2 
-                lg:my-6
-                flex-1">
-                    {title}
-            </h3>
+            <h4 className="
+                    text-[14px] 
+                    md:text-xl
+                    lg:text-2xl 
+                    font-semibold 
+                    mb-2 
+                    lg:my-6
+                    flex-1">
+                {title}
+            </h4>
             <p className="
                 hidden 
                 md:block 
