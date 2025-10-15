@@ -23,7 +23,7 @@ async function createContact(req, res, next) {
     if (!email || !EMAIL_RE.test(email)) {
       return res.status(400).json({ where:'validation', field:'email', message:'Email invalide' });
     }
-    if (!message || message.length < 5) {
+    if (!message || message.length < 3) {
       return res.status(400).json({ where:'validation', field:'message', message:'Message trop court' });
     }
 
