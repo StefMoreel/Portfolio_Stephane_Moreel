@@ -4,7 +4,7 @@ const Contact = require('../models/Contact.js');
 // petite regex email “raisonnable”
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const { notifyContact } = require('../services/mailer.js');
+const { sendMail } = require('../services/mailer.js');
 
 function sanitize(s) {
   return typeof s === 'string' ? s.trim() : '';
@@ -34,7 +34,7 @@ async function createContact(req, res, next) {
 
     const doc = await Contact.create({ firstName, lastName, email, message });
 
-     notifyContact({ firstName, lastName, email, message })
+     sendMail({ firstName, lastName, email, message })
       .catch(err => console.error('[MAILER]', err.message));
 
     return res.status(201).json({ status: 'ok', id: doc._id });
