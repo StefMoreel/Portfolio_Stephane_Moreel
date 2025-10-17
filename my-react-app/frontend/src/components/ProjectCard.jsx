@@ -3,14 +3,17 @@ import { IoIosArrowUp } from "react-icons/io";
 
 function ProjectCard({ image, title, description, tags, url }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const toggleCollapse = () => setIsCollapsed(v => !v);
+  const toggleCollapse = () => setIsCollapsed((v) => !v);
   const buttonText = isCollapsed ? "Moins de détails" : "Plus de détails";
 
   // Hauteur commune quand c'est ouvert (ajuste si besoin)
   const OPEN_H = 260; // px
 
   return (
-    <div className="bg-transparent mx-10 md:mx-0 mt-8 rounded-lg text-center md:w-[500px] xl:w-[450px]" style={{ contain: "layout" }}>
+    <div
+      className="bg-transparent mx-10 md:mx-0 mt-8 rounded-lg text-center md:w-[500px] xl:w-[450px]"
+      style={{ contain: "layout" }}
+    >
       {/* Image + bouton overlay */}
       <div className="relative w-full overflow-hidden rounded-t-lg">
         <img
@@ -29,7 +32,9 @@ function ProjectCard({ image, title, description, tags, url }) {
           >
             <span className="text-sm lg:text-base">{buttonText}</span>
             <IoIosArrowUp
-              className={`size-5 border border-white/60 rounded-full transition-transform duration-300 ${isCollapsed ? "" : "rotate-180"}`}
+              className={`size-5 border border-white/60 rounded-full transition-transform duration-300 ${
+                isCollapsed ? "" : "rotate-180"
+              }`}
             />
           </button>
         </div>
@@ -40,7 +45,11 @@ function ProjectCard({ image, title, description, tags, url }) {
         className={`
           flex flex-col items-center justify-center w-full rounded-b-lg
           transition-colors duration-300
-          ${isCollapsed ? "bg-gradient-to-t from-black to-yellow" : "bg-transparent"}
+          ${
+            isCollapsed
+              ? "bg-gradient-to-t from-black to-yellow"
+              : "bg-transparent"
+          }
         `}
       >
         <div
@@ -51,14 +60,24 @@ function ProjectCard({ image, title, description, tags, url }) {
           `}
           style={{ maxHeight: isCollapsed ? OPEN_H : 0 }}
         >
-          <div className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4" style={{ height: OPEN_H, overflowY: "auto" }}>
-            <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">{title}</h3>
-            <p className="font-semibold text-[12px] lg:text-[18px]">{description}</p>
+          <div
+            className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4"
+            style={{ height: OPEN_H, overflowY: "auto" }}
+          >
+            <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">
+              {title}
+            </h3>
+            <p className="font-semibold text-[12px] lg:text-[18px]">
+              {description}
+            </p>
 
             {Array.isArray(tags) && tags.length > 0 && (
               <ul className="mt-3 flex flex-wrap justify-center gap-2">
                 {tags.map((t, i) => (
-                  <li key={`${t}-${i}`} className="px-3 py-1 rounded-full text-xs lg:text-sm bg-black text-white">
+                  <li
+                    key={`${t}-${i}`}
+                    className="px-3 py-1 rounded-full text-xs lg:text-sm bg-black text-white"
+                  >
                     {t}
                   </li>
                 ))}
@@ -80,7 +99,6 @@ function ProjectCard({ image, title, description, tags, url }) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

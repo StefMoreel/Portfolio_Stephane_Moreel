@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-black : #1F242D;
-  --color-yellow : #C8DD0A;
-  --color-blue : #00EEFF;
-  --color-grey : #657693;
+  --color-black: #1f242d;
+  --color-yellow: #c8dd0a;
+  --color-blue: #00eeff;
+  --color-grey: #657693;
 
-  --font-montserrat: 'Montserrat', sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
   --font-display: "Syne", "Montserrat", sans-serif;
 
   --text-18: 18px;
@@ -17,12 +17,19 @@
 }
 
 @utility bg-gradient-yellow {
-  background-image: linear-gradient(90deg, var(--color-black) 0%, var(--color-yellow) 100%);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-black) 0%,
+    var(--color-yellow) 100%
+  );
 }
 @utility bg-gradient-black {
-  background-image: linear-gradient(5deg, var(--color-grey) 0%, var(--color-black) 50%);
+  background-image: linear-gradient(
+    5deg,
+    var(--color-grey) 0%,
+    var(--color-black) 50%
+  );
 }
-
 
 html {
   scroll-behavior: smooth;
@@ -36,5 +43,3 @@ h3 {
     font-size: 32px;
   }
 }
-
-

@@ -1,22 +1,30 @@
-import { useEffect, useState, useMemo } from 'react';
-import SoftSkillsCard from './SoftSkillCard.jsx';
-import { API_ROUTES } from '../utils/constants';
+import { useEffect, useState, useMemo } from "react";
+import SoftSkillsCard from "./SoftSkillCard.jsx";
+import { API_ROUTES, CDN } from "../utils/constants";
 
 function SoftSkills() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
-  // petit helper pour fabriquer une URL Cloudinary si le backend ne fournit pas logo.url
-  const makeCldUrl = useMemo(() => {
-    return (publicId, { w = 60, h = 60, fit = 'fit' } = {}) => {
-      if (!publicId) return '';
-      if (/^https?:\/\//i.test(publicId)) return publicId; // déjà une URL
-      if (!CDN.CLOUD_NAME) return ''; // pas de fallback possible
-      const t = [`f_auto`, `q_auto`, `dpr_auto`, `c_${fit}`, `w_${w}`, `h_${h}`].join(',');
+  const USE_PROXY = import.meta.env.VITE_USE_IMAGE_PROXY === 'true';
+
+  // URL builder: préfère le proxy si activé, sinon Cloudinary direct
+  const makeImgUrl = useMemo(() => {
+    return (publicId, { w = 60, h = 60, fit = "fit" } = {}) => {
+      if (!publicId) return "";
+      if (/^https?:\/\//i.test(publicId)) return publicId; // déjà une URL (ex: backend a mis .url)
+
+      const t = ["f_auto","q_auto","dpr_auto",`c_${fit}`,`w_${w}`,`h_${h}`].join(",");
+
+      // → Proxy d’images (depuis ton domaine backend) : pas de cookies tiers
+      if (USE_PROXY) return API_ROUTES.CDN(publicId, t);
+
+      // → Cloudinary direct (fallback)
+      if (!CDN.CLOUD_NAME) return "";
       return `https://res.cloudinary.com/${CDN.CLOUD_NAME}/image/upload/${t}/${publicId}`;
     };
-  }, []);
+  }, [USE_PROXY]);
 
   useEffect(() => {
     const ac = new AbortController();
@@ -24,13 +32,15 @@ function SoftSkills() {
       try {
         setLoading(true);
         setErr(null);
-        // astuce : passe w/h/fit pour que le backend te renvoie des URLs prêtes (si tu as le middleware imageOpts)
-        const res = await fetch(`${API_ROUTES.SOFT_SKILLS}?w=64&h=64&fit=fit`, { signal: ac.signal });
+        // Si ton backend a un middleware imageOpts, il renverra déjà logo.url prêt
+        const res = await fetch(`${API_ROUTES.SOFT_SKILLS}?w=64&h=64&fit=fit`, {
+          signal: ac.signal,
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setItems(Array.isArray(data) ? data : []);
       } catch (e) {
-        if (e.name !== 'AbortError') setErr(e.message || 'Erreur inattendue');
+        if (e.name !== "AbortError") setErr(e.message || "Erreur inattendue");
       } finally {
         setLoading(false);
       }
@@ -45,30 +55,23 @@ function SoftSkills() {
           Soft <span className="text-yellow md:text-white">Skills</span>
         </h3>
         <p className="text-[13px] md:text-xl lg:text font-semibold mt-5 mx-8 md:mx-48 lg:mx-50 xl:mx-100">
-          Mon expérience en ressources humaines m’a appris à allier rigueur, écoute et collaboration, des qualités
-          que j’applique aujourd’hui au développement full-stack.
+          Mon expérience en ressources humaines m’a appris à allier rigueur,
+          écoute et collaboration, des qualités que j’applique aujourd’hui au
+          développement full-stack.
         </p>
         <p className="text-[13px] md:text-xl lg:text font-semibold mt-5 mx-8 md:mx-48 lg:mx-50">
           Voici ce que je peux apporter à votre équipe :
         </p>
       </div>
 
-      {/* état de chargement / erreur */}
       {loading && (
-        <div className="
-            mx-8 
-            md:mx-14 
-            lg:mx-60 
-            mt-8 
-            grid 
-            gap-6 
-            sm:grid-cols-2 
-            lg:grid-cols-3">
+        <div className="mx-8 md:mx-14 lg:mx-60 mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="w-full max-w-[385px] h-[180px] animate-pulse rounded-lg bg-white/5" />
           ))}
         </div>
       )}
+
       {err && (
         <div className="text-center text-red-400 mt-8">
           Impossible de charger les soft skills : {err}
@@ -76,35 +79,26 @@ function SoftSkills() {
       )}
 
       {!loading && !err && (
-        <div
-          className="
-            mx-10
-            md:mx-30
-            lg:mx-20
-            xl:mx-60
-            mt-8 
-            lg:my-20
-            grid 
-            gap-6 
-            grid-cols-2
-            lg:grid-cols-3
-            items-stretch 
-            justify-items-center"
-
-        >
-          {items.map((skill) => {
+        <div className="mx-10 md:mx-30 lg:mx-20 xl:mx-60 mt-8 lg:my-20 grid gap-6 grid-cols-2 lg:grid-cols-3 items-stretch justify-items-center">
+          {items.map((softskill) => {
             const iconUrl =
-              skill.logo?.url ||
-              (skill.logo?.publicId ? makeCldUrl(skill.logo.publicId, { w: 48, h: 48 }) : '');
+              softskill.logo?.url || // déjà fourni par le backend ? parfait
+              (softskill.logo?.publicId ? makeImgUrl(softskill.logo.publicId, { w: 48, h: 48, fit: "fit" }) : "");
 
             return (
               <SoftSkillsCard
-                key={skill._id}
-                title={skill.title}
-                description={skill.description}
+                key={softskill._id}
+                title={softskill.title}
+                description={softskill.description}
                 icon={
                   iconUrl ? (
-                    <img src={iconUrl} alt={skill.logo?.alt || skill.title} className="size-6 md:size-8 lg:size-10 xl:size-12" />
+                    <img
+                      src={iconUrl}
+                      alt={softskill.logo?.alt || softskill.title}
+                      className="size-10 md:size-12 lg:size-14 xl:size-16"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : null
                 }
               />

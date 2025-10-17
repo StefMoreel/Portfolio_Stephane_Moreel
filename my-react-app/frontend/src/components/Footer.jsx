@@ -1,11 +1,12 @@
-import { BiSolidUpArrowAlt } from 'react-icons/bi';
+import { BiSolidUpArrowAlt } from "react-icons/bi";
 
 function Footer() {
   return (
     <section className="bg-black">
       <footer className="mx-auto max-w-7xl flex items-center justify-between p-4">
         <p className="text-sm lg:text-lg text-gray-400">
-          &copy; {new Date().getFullYear()} Stéphane Moreel. Tous droits réservés.
+          &copy; {new Date().getFullYear()} Stéphane Moreel. Tous droits
+          réservés.
         </p>
 
         <a
@@ -18,7 +19,7 @@ function Footer() {
         </a>
       </footer>
     </section>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

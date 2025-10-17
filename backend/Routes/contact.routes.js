@@ -1,8 +1,8 @@
 // backend/Routes/contact.routes.js
-const { Router } = require('express');
+const { Router } = require("express");
 const router = Router();
-const rateLimit = require('express-rate-limit');
-const { createContact } = require('../controllers/contact.controller');
+const rateLimit = require("express-rate-limit");
+const { createContact } = require("../controllers/contact.controller");
 
 // limite légère: 5 submissions / 5 min par IP
 const contactLimiter = rateLimit({
@@ -12,6 +12,6 @@ const contactLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post('/', contactLimiter, createContact);
+router.post("/", contactLimiter, createContact);
 
 module.exports = router;
