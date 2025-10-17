@@ -5,10 +5,20 @@ import { FaGithub } from "react-icons/fa6";
 import Button from "./HeroButtons.jsx";
 import Links from "./Links.jsx";
 
+import { API_ROUTES, CDN } from "../utils/constants";
+
 function Hero() {
   const pdfURL = "/CV_STEPHANE_MOREEL 092025 V2.pdf";
-  const photoURL =
-    "https://res.cloudinary.com/dp5ku1ihk/image/upload/v1760520215/photo_sm_portfolio_ztg9oc_k3ssqm.webp";
+
+  // le chemin Cloudinary (avec la version) devient le "publicId" pour le proxy
+  const photoPublicId = "v1760520215/photo_sm_portfolio_ztg9oc_k3ssqm.webp";
+
+  const USE_PROXY = import.meta.env.VITE_USE_IMAGE_PROXY === "true";
+
+  const photoURL = USE_PROXY
+    ? API_ROUTES.CDN(photoPublicId, "f_auto,q_auto,dpr_auto,c_fill,w_234,h_317")
+    : `https://res.cloudinary.com/${CDN.CLOUD_NAME}/image/upload/f_auto,q_auto,dpr_auto,c_fill,w_234,h_317/${photoPublicId}`;
+
 
   return (
     <section className="bg-black pb-10">
