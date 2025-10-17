@@ -11,7 +11,7 @@ function Hero() {
   const pdfURL = "/CV_STEPHANE_MOREEL 092025 V2.pdf";
 
   // le chemin Cloudinary (avec la version) devient le "publicId" pour le proxy
-  const photoPublicId = "photo_sm_portfolio_ztg9oc_k3ssqm.webp";
+  const photoPublicId = "photo_sm_portfolio_ztg9oc_k3ssqm";
 
   const USE_PROXY = import.meta.env.VITE_USE_IMAGE_PROXY === "true";
 
