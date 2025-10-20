@@ -37,7 +37,7 @@ function SoftSkillCard({ icon, title, description }) {
               md:static md:[backface-visibility:visible]
             "
           >
-            <div className="flex flex-col items-center justify-center gap-3">
+            <div className="flex flex-col items-center justify-center gap-6">
               {icon}
               <h4 className="text-[16px] md:text-xl lg:text-2xl font-semibold mb-2 lg:my-6">
                 {title}

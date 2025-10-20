@@ -8,13 +8,13 @@ function About() {
         Faisons{" "}
         <span className="text-yellow md:text-white">connaissance !</span>
       </h3>
-      <p className="text-[13px] md:text-xl lg:text-2xl mt-5 font-bold mx-8 md:mx-48 lg:mx-72">
+      <p className="text-[13px] md:text-xl lg:text-2xl mt-5 font-bold mx-8 md:mx-35 xl:mx-60">
         Après 20 ans dans les ressources humaines, j’ai décidé de me lancer dans
         le développement web, une passion qui allie logique et créativité. Mon
         parcours m’a appris à gérer des projets complexes, une compétence que je
         mets désormais au service du code.
       </p>
-      <p className="text-[13px] md:text-xl lg:text-2xl mt-5 font-bold mx-8 md:mx-48 lg:mx-72">
+      <p className="text-[13px] md:text-xl lg:text-2xl mt-5 font-bold mx-8 md:mx-35 lg:mx-60">
         En dehors des écrans, je suis guitariste dans un orchestre de bal et
         bassiste dans un tribute to Muse, preuve que je sais travailler en
         équipe et m’adapter à tous les tempos !

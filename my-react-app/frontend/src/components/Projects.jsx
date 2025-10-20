@@ -8,25 +8,21 @@ function Projects() {
   const [err, setErr] = useState(null);
 
   useEffect(() => {
-    const ac = new AbortController();
-    (async () => {
-      try {
-        setLoading(true);
-        setErr(null);
-        const res = await fetch(`${API_ROUTES.PROJECTS}`, {
-          signal: ac.signal,
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        setItems(Array.isArray(data) ? data : []);
-      } catch (e) {
-        if (e.name !== "AbortError") setErr(e.message || "Erreur inattendue");
-      } finally {
-        setLoading(false);
-      }
-    })();
-    return () => ac.abort();
-  }, []);
+  const ac = new AbortController();
+  (async () => {
+    try {
+      const res = await fetch(`${API_ROUTES.PROJECTS}`, { signal: ac.signal });
+      const data = await res.json();
+      setItems(Array.isArray(data) ? data : []);
+    } catch (e) {
+      if (e.name !== "AbortError") setErr(e.message || "Erreur inattendue");
+    } finally {
+      setLoading(false);
+    }
+  })();
+  return () => ac.abort();
+}, []);
+
 
   return (
     <section

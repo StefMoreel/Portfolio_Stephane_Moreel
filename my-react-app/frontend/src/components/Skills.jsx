@@ -35,7 +35,7 @@ export default function Skills() {
         <span className="text-yellow md:text-white">Techniques</span>
       </h3>
 
-      <div className="flex flex-wrap md:flex-nowrap justify-center gap-8 md:mx-20 xl:mx-30">
+      <div className="flex flex-wrap md:flex-nowrap justify-center gap-8 md:mx-20 xl:mx-40">
         {skills.map((s) => (
           <SkillCard
             key={s._id}
