@@ -1,6 +1,6 @@
 import ProjectCard from "./ProjectCard.jsx";
 import { API_ROUTES } from "../utils/constants.js";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 function Projects() {
   const [items, setItems] = useState([]);
@@ -45,10 +45,7 @@ function Projects() {
         {err && <div className="text-center text-gray-400">{err}</div>}
         {items.map((p) => {
           const imageUrl =
-            p.image?.url ||
-            (p.image?.publicId
-              ? makeCldUrl(p.image.publicId, { w: 800, h: 450, fit: "cover" })
-              : "");
+            p.image?.url ?? null;
 
           return (
             <ProjectCard
@@ -58,8 +55,10 @@ function Projects() {
               description={p.description}
               tags={(p.tags || []).map((tag) => tag)}
               url={p.url}
+              alt={p.image?.alt || ''}
             />
           );
+          
         })}
       </div>
     </section>

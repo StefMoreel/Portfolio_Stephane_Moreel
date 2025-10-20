@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
-function ProjectCard({ image, title, description, tags, url }) {
+function ProjectCard({ image, alt, title, description, tags, url }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => setIsCollapsed((v) => !v);
   const buttonText = isCollapsed ? "Moins de détails" : "Plus de détails";
@@ -18,7 +18,7 @@ function ProjectCard({ image, title, description, tags, url }) {
       <div className="relative w-full overflow-hidden rounded-t-lg">
         <img
           src={image}
-          alt={title}
+          alt={alt || title} 
           className="block w-full aspect-video object-cover"
           loading="lazy"
           decoding="async"
@@ -90,6 +90,7 @@ function ProjectCard({ image, title, description, tags, url }) {
                   href={url}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={`Voir le projet ${title}`}
                   className="inline-flex items-center justify-center min-w-[250px] h-10 rounded-full bg-gradient-to-b from-black to-yellow text-white font-semibold text-[16px] lg:text-base hover:opacity-90 transition"
                 >
                   Voir le projet

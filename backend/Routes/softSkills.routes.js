@@ -1,11 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-const upload = require("../middlewares/upload");
-const {
-  uploadLogoToCloudinary,
-} = require("../middlewares/upload-cloudinary-single");
-const { imageOptions } = require("../middlewares/imagesOptions"); // si tu utilises w/h/fit sur GET
+const { upload, uploadToImgbb } = require('../middlewares/uploadImgbb');
 const {
   listSoftSkills,
   getSoftSkillById,
@@ -13,21 +9,11 @@ const {
   createSoftSkill,
 } = require("../controllers/softSkills.controller");
 
-router.get("/", imageOptions, listSoftSkills);
-router.get("/:id", imageOptions, getSoftSkillById);
+router.get("/", listSoftSkills);
+router.get("/:id", getSoftSkillById);
 
-router.post(
-  "/",
-  upload,
-  uploadLogoToCloudinary({ folder: "portfolio/softskills" }),
-  createSoftSkill
-);
+router.post("/", upload.single("image"), uploadToImgbb, createSoftSkill);
 
-router.put(
-  "/:id",
-  upload, // accepte multipart
-  uploadLogoToCloudinary({ folder: "portfolio/softskills" }),
-  updateSoftSkill
-);
+router.put("/:id", upload.single("image"), uploadToImgbb, updateSoftSkill);
 
 module.exports = router;

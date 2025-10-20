@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const LogoSchema = new mongoose.Schema(
   {
-    publicId: { type: String, required: true, trim: true },
+    url: { type: String, required: true, trim: true },
     alt: { type: String, default: "", trim: true },
+    deleteUrl: { type: String, default: "", trim: true },
   },
   { _id: false }
 );

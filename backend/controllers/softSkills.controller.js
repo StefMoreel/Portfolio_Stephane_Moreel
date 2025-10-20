@@ -1,138 +1,126 @@
-// backend/controllers/softSkills.controller.js
-const mongoose = require("mongoose");
-const SoftSkill = require("../models/SoftSkill");
-const { cloudinary } = require("../services/cloudinary");
-const { cld } = require("../utils/cdn"); // helper URL Cloudinary "safe"
+const mongoose = require('mongoose');
+const SoftSkill = require('../models/SoftSkill');
+const { deleteViaDeleteUrl } = require('../services/imgbb');
 
-// ---- helpers ----
-function mapSoftSkill(doc, req) {
-  const s = doc.toObject ? doc.toObject() : doc;
-  const opts = req.imageOpts || {};
-  if (s.logo?.publicId) {
-    s.logo.url = cld(s.logo.publicId, opts) || null;
-  }
-  return s;
+/** Parse JSON si string, sinon retourne tel quel */
+function parseMaybeJSON(input) {
+  if (Array.isArray(input) || (input && typeof input === 'object')) return input;
+  if (typeof input !== 'string') return input;
+  try { return JSON.parse(input); } catch { return input; }
 }
 
-// ---- controllers ----
-
-async function createSoftSkill(req, res, next) {
-  try {
-    const { title, description } = req.body;
-
-    // logo: soit JSON direct, soit string JSON (multipart)
-    let logo = req.body.logo;
-    if (typeof logo === "string") {
-      try {
-        logo = JSON.parse(logo);
-      } catch {
-        logo = undefined;
-      }
-    }
-
-    // si tu utilises un middleware upload single (fileKey -> publicId),
-    // logo.publicId sera déjà rempli ici.
-    const doc = await SoftSkill.create({
-      title,
-      description: description || "",
-      logo: logo?.publicId
-        ? { publicId: logo.publicId, alt: logo.alt || "" }
-        : undefined,
-    });
-
-    return res.status(201).json(mapSoftSkill(doc, req));
-  } catch (e) {
-    next(e);
-  }
-}
-
+/** GET /api/softskills */
 async function listSoftSkills(req, res, next) {
   try {
     const docs = await SoftSkill.find().sort({ createdAt: -1 });
-    res.json(docs.map((d) => mapSoftSkill(d, req)));
-  } catch (e) {
-    next(e);
-  }
+    // imgbb ne gère pas de transformations dynamiques → on renvoie tel quel
+    res.json(docs);
+  } catch (e) { next(e); }
 }
 
+/** GET /api/softskills/:id */
 async function getSoftSkillById(req, res, next) {
   try {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(400);
     const doc = await SoftSkill.findById(id);
     if (!doc) return res.sendStatus(404);
-    res.json(mapSoftSkill(doc, req));
-  } catch (e) {
-    next(e);
-  }
+    res.json(doc);
+  } catch (e) { next(e); }
+}
+
+/**
+ * POST /api/softskills
+ * - multipart: champ fichier "image" (géré par upload.single('image') + uploadToImgbb) → req.uploadedImage { url, deleteUrl }
+ * - JSON: { title, description, logo: { url, alt } }
+ */
+async function createSoftSkill(req, res, next) {
+  try {
+    const body = parseMaybeJSON(req.body) || {};
+
+    // Construire le logo suivant la présence d’un upload ou d’une URL
+    let logo;
+    if (req.uploadedImage) {
+      logo = {
+        url: req.uploadedImage.url,
+        deleteUrl: req.uploadedImage.deleteUrl || '',
+        alt: body?.logo?.alt || body?.alt || '',
+      };
+    } else if (body?.logo?.url) {
+      logo = {
+        url: body.logo.url,
+        alt: body.logo.alt || '',
+        // pas de deleteUrl si tu fournis toi-même une URL déjà hébergée
+      };
+    }
+
+    const doc = await SoftSkill.create({
+      title: body.title,
+      description: body.description || '',
+      ...(logo ? { logo } : {}),
+    });
+
+    res.status(201).json(doc);
+  } catch (e) { next(e); }
 }
 
 /**
  * PUT /api/softskills/:id
- * Body JSON:
- *   { "title"?, "description"?, "logo"?: { "publicId": "...", "alt"?: "..." } }
- * Multipart:
- *   logo (Text): {"fileKey":"logo","alt":"..."}
- *   logo (File): (fieldname "logo")  => middleware remplacera fileKey -> publicId
+ * - multipart possible (image) → remplace le logo et tente de supprimer l’ancien via deleteUrl (best-effort)
+ * - sinon, permet de mettre à jour title/description/alt/url via JSON
+ *   ex JSON:
+ *   {
+ *     "title": "...",
+ *     "description": "...",
+ *     "logo": { "url": "https://i.ibb.co/...", "alt": "..." }
+ *   }
  */
 async function updateSoftSkill(req, res, next) {
   try {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(400);
 
-    const ss = await SoftSkill.findById(id);
-    if (!ss) return res.sendStatus(404);
+    const doc = await SoftSkill.findById(id);
+    if (!doc) return res.sendStatus(404);
 
-    // champs simples
-    for (const k of ["title", "description"]) {
-      if (req.body[k] !== undefined) ss[k] = req.body[k];
+    const body = parseMaybeJSON(req.body) || {};
+
+    // Champs simples
+    if (body.title !== undefined)       doc.title = body.title;
+    if (body.description !== undefined) doc.description = body.description;
+
+    // Remplacement du logo via upload fichier
+    if (req.uploadedImage) {
+      const prevDelete = doc.logo?.deleteUrl;
+      doc.logo = {
+        url: req.uploadedImage.url,
+        deleteUrl: req.uploadedImage.deleteUrl || '',
+        alt: body?.logo?.alt || body?.alt || doc.logo?.alt || '',
+      };
+      await doc.save();
+
+      // Tentative de suppression de l’ancienne image
+      if (prevDelete) deleteViaDeleteUrl(prevDelete).catch(() => {});
+      return res.json(doc);
     }
 
-    // remplacement du logo si fourni
-    if (req.body.logo !== undefined) {
-      const incoming =
-        typeof req.body.logo === "string"
-          ? JSON.parse(req.body.logo)
-          : req.body.logo;
-
-      const prevPid = ss.logo?.publicId || null;
-
-      if (incoming && incoming.publicId) {
-        ss.logo = {
-          publicId: incoming.publicId,
-          alt: incoming.alt || ss.logo?.alt || "",
-        };
-      } else if (incoming === null) {
-        ss.logo = undefined; // supprimer le logo si { "logo": null }
-      }
-
-      await ss.save();
-
-      // nettoyage Cloudinary si on a réellement remplacé
-      if (
-        prevPid &&
-        ss.logo?.publicId &&
-        ss.logo.publicId !== prevPid &&
-        process.env.SUPPRESS_CLOUDINARY_DELETE !== "true"
-      ) {
-        try {
-          await cloudinary.uploader.destroy(prevPid);
-        } catch (_) {}
-      }
-
-      return res.json(mapSoftSkill(ss, req));
+    // Sinon, MAJ via JSON (alt / url)
+    if (body.logo) {
+      doc.logo = {
+        url: body.logo.url || doc.logo?.url,
+        alt: body.logo.alt || doc.logo?.alt || '',
+        deleteUrl: doc.logo?.deleteUrl || '', // on conserve l’éventuel deleteUrl existant
+      };
     }
 
-    await ss.save();
-    return res.json(mapSoftSkill(ss, req));
-  } catch (e) {
-    next(e);
-  }
+    await doc.save();
+    res.json(doc);
+  } catch (e) { next(e); }
 }
 
 module.exports = {
-  createSoftSkill,
   listSoftSkills,
   getSoftSkillById,
+  createSoftSkill,
   updateSoftSkill,
 };

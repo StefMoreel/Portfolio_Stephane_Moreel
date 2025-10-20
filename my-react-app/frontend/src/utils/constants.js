@@ -6,8 +6,4 @@ export const API_ROUTES = {
   PROJECTS: `${API_URL}/api/projects`,
   SOFT_SKILLS: `${API_URL}/api/softskills`,
   CONTACT: `${API_URL}/api/contact`,
-  CDN: (publicId, t) => `${API_URL}/cdn/${t}/${publicId}`,
-};
-export const CDN = {
-  CLOUD_NAME: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '',
 };

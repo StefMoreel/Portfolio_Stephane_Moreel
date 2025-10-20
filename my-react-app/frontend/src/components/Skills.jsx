@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SkillCard from "./SkillCard";
-import { API_ROUTES } from "../utils/constants"; // VITE_API_URL configuré
+import { API_ROUTES } from "../utils/constants";
 
 export default function Skills() {
   const [skills, setSkills] = useState([]);
@@ -42,7 +42,6 @@ export default function Skills() {
             title={s.title}
             subtitle={s.subtitle}
             description={s.description}
-            // Le backend renvoie logos: [{ url, alt, publicId }]
             icons={(s.logos ?? []).map((l) => l.url)}
           />
         ))}

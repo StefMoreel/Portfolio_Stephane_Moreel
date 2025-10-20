@@ -20,35 +20,33 @@ mongoose
 
 const app = express();
 
-// 0) Confiance proxy (Render/Cloudflare) -> IP correcte pour le rate-limit
+// 0) Confiance proxy (Render) -> IP correcte pour le rate-limit
 app.set("trust proxy", 1);
 
 // 1) Helmet (CSP) — filtre les valeurs falsy pour éviter 'undefined'
 const IMG_ALLOW = [
   "'self'",
   "data:",
-  process.env.CLIENT_URL,
   "blob:",
-  "https://res.cloudinary.com",
-].filter(Boolean);
+  "https://i.ibb.co",
+  "https://iili.io",
+];
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      imgSrc: IMG_ALLOW,
-      scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      fontSrc: ["'self'"],
-      baseUri: ["'self'"],
-      formAction: ["'self'"],
-      frameAncestors: ["'self'"],
-      objectSrc: ["'none'"],
-      scriptSrcAttr: ["'none'"],
-      upgradeInsecureRequests: [],
-    },
-  })
-);
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    imgSrc: IMG_ALLOW,
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    fontSrc: ["'self'"],
+    baseUri: ["'self'"],
+    formAction: ["'self'"],
+    frameAncestors: ["'self'"],
+    objectSrc: ["'none'"],
+    scriptSrcAttr: ["'none'"],
+    upgradeInsecureRequests: [],
+  },
+}));
 
 app.use((req, res, next) => {
   if (req.headers.origin) console.log("[Origin]", req.headers.origin);
@@ -137,13 +135,11 @@ const skillRoutes = require("./Routes/Skills.routes");
 const softSkillRoutes = require("./Routes/softSkills.routes");
 const projectRoutes = require("./Routes/projects.routes");
 const contactRoutes = require("./Routes/contact.routes");
-const cdnRoutes = require("./Routes/cdn.routes");
 
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/softskills", softSkillRoutes);
 app.use("/api/contact", contactRoutes);
-app.use("/api/cdn", cdnRoutes);
 
 // 8) 404
 app.use((req, res) => {

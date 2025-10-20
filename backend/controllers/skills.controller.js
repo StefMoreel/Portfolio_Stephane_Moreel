@@ -1,96 +1,26 @@
-// controllers/skills.controller.js
 const mongoose = require("mongoose");
 const Skill = require("../models/Skill");
-const { cloudinary } = require("../services/cloudinary");
-const { cld } = require("../utils/cdn"); // URL builder Cloudinary "safe"
+const { deleteViaDeleteUrl } = require("../services/imgbb");
 
-// --- Helpers ---------------------------------------------------------------
 
-/**
- * Renvoie un objet JS "propre" et ajoute une URL Cloudinary calculée sur chaque logo
- * selon les opts (w/h/fit…) présentes dans req.imageOpts (middleware optionnel).
- */
-function mapSkill(doc, req) {
-  const s = doc.toObject ? doc.toObject() : doc;
-  const opts = req.imageOpts || {};
-  s.logos = (s.logos || []).map((l) => ({
-    ...l,
-    url: cld(l.publicId, opts) || null,
-  }));
-  return s;
-}
-
-/**
- * Normalise un éventuel body stringifié (multipart) en vrai array d’objets.
- * Retourne toujours un array (éventuellement vide).
- */
-function parseLogosFromBody(bodyValue) {
-  if (!bodyValue) return [];
-  if (Array.isArray(bodyValue)) return bodyValue;
-  if (typeof bodyValue === "string") {
-    try {
-      return JSON.parse(bodyValue);
-    } catch {
-      return [];
-    }
+function parseMaybeJSON(input) {
+  if (Array.isArray(input) || (input && typeof input === "object")) return input;
+  if (typeof input !== "string") return input;
+  try {
+    return JSON.parse(input);
+  } catch {
+    return input;
   }
-  return [];
 }
-
-/**
- * Construit la liste "finale" des logos, en tenant compte des existants.
- * Règles :
- *  - item avec _id → on conserve l’existant et on met à jour alt et/ou publicId
- *  - item sans _id mais avec publicId → nouveau logo
- *  - ordre = ordre du tableau fourni (réordonnancement géré implicitement)
- */
-function buildNextLogos(currentLogos, inputLogos) {
-  const byId = new Map((currentLogos || []).map((l) => [String(l._id), l]));
-  const next = [];
-
-  for (const it of inputLogos) {
-    if (!it) continue;
-
-    if (it._id) {
-      const ex = byId.get(String(it._id));
-      if (!ex) continue; // _id inconnu → on ignore
-
-      const publicId = it.publicId ?? ex.publicId;
-      const alt = it.alt ?? ex.alt ?? "";
-      next.push({ _id: ex._id, publicId, alt });
-      continue;
-    }
-
-    if (it.publicId) {
-      const alt = it.alt || "";
-      next.push({ publicId: it.publicId, alt });
-    }
-  }
-
-  return next;
-}
-
-/**
- * Diff : retourne la liste des publicId présents avant mais absents après
- * (à supprimer sur Cloudinary).
- */
-function diffPublicIds(prevLogos, nextLogos) {
-  const prev = new Set((prevLogos || []).map((l) => l.publicId));
-  const nxt = new Set((nextLogos || []).map((l) => l.publicId));
-  return [...prev].filter((pid) => !nxt.has(pid));
-}
-
-// --- Controllers -----------------------------------------------------------
 
 /**
  * GET /api/skills
- * Liste des skills (tri desc par date) avec URLs Cloudinary calculées (si possible).
+
  */
 async function listSkills(req, res, next) {
   try {
     const docs = await Skill.find().sort({ createdAt: -1 });
-    const items = docs.map((d) => mapSkill(d, req));
-    res.json(items);
+    res.json(docs);
   } catch (e) {
     next(e);
   }
@@ -102,126 +32,109 @@ async function getSkillById(req, res, next) {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(400);
     const doc = await Skill.findById(id);
     if (!doc) return res.sendStatus(404);
-    return res.json(mapSkill(doc, req));
+    return res.json(doc);
   } catch (e) {
     next(e);
   }
 }
 
-/**
- * PUT /api/skills/:id
- * Met à jour un skill :
- *  - title/subtitle/description si fournis
- *  - logos : l’array fourni devient l’état final (ajout/suppression/remplacement/réordre)
- *    - item {_id, alt} → conserve l’image, met à jour l’alt
- *    - item {_id, publicId, alt} → remplace l’image
- *    - item {publicId, alt} → ajoute un nouveau logo
- *  - supprime sur Cloudinary les anciennes images qui ne sont plus dans la liste
- *
- * Payload accepté :
- *  - application/json (simple)
- *  - multipart/form-data (avec fichiers si tu as mis le middleware upload + uploadToCloudinary)
- *    - dans ce cas, `uploadToCloudinary` remplace les { fileKey } par { publicId } AVANT d’arriver ici.
- */
-function asId(x) {
+
+
+async function createSkill(req, res, next) {
   try {
-    return new mongoose.Types.ObjectId(String(x));
-  } catch {
-    return null;
-  }
+    const body = parseMaybeJSON(req.body) || {};
+    const fromBody = toArray(body.logos)
+      .map(x => (x?.url ? { url: x.url, alt: x.alt || '' } : null))
+      .filter(Boolean);
+
+    const uploaded = Array.isArray(req.uploadedImages)
+      ? req.uploadedImages.map(x => ({ url: x.url, deleteUrl: x.deleteUrl, alt: '' }))
+      : [];
+
+    const doc = await Skill.create({
+      title: body.title,
+      subtitle: body.subtitle || '',
+      description: body.description || '',
+      logos: [...fromBody, ...uploaded],
+    });
+    res.status(201).json(doc);
+  } catch (e) { next(e); }
 }
 
+// PUT /api/skills/:id
+// combine: update champs, ajouter logos (fichiers + URLs), MAJ alt, supprimer certains logos
+// Body JSON possible:
+// { addLogos:[{url,alt}], updateAlts:[{_id,alt}], removeLogoIds:["...","..."] }
 async function updateSkill(req, res, next) {
   try {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(400);
+    const doc = await Skill.findById(id);
+    if (!doc) return res.sendStatus(404);
 
-    const skill = await Skill.findById(id);
-    if (!skill) return res.sendStatus(404);
+    const body = parseMaybeJSON(req.body) || {};
 
-    // 1) champs simples
-    ["title", "subtitle", "description"].forEach((k) => {
-      if (req.body[k] !== undefined) skill[k] = req.body[k];
+    // champs simples
+    ['title','subtitle','description'].forEach(k => {
+      if (body[k] !== undefined) doc[k] = body[k];
     });
 
-    // 2) mode de mise à jour des logos
-    const requested = parseLogosFromBody(req.body.logos);
-    const replaceAll = /^1|true$/i.test(String(req.query.replace || "")); // ?replace=1 pour forcer le remplacement total
-
-    if (requested.length || replaceAll) {
-      const current = skill.logos || [];
-
-      // indexation actuelle par _id et par publicId
-      const byId = new Map(current.map((l) => [String(l._id), l]));
-      const byPid = new Map(current.map((l) => [l.publicId, l]));
-
-      // construire la cible
-      const next = [];
-      for (const it of requested) {
-        if (!it) continue;
-
-        // 2.1 — MAJ d’un existant par _id OU par publicId
-        if (it._id || it.publicId) {
-          let existing = null;
-          if (it._id && byId.has(String(it._id)))
-            existing = byId.get(String(it._id));
-          else if (it.publicId && byPid.has(it.publicId))
-            existing = byPid.get(it.publicId);
-
-          if (existing) {
-            next.push({
-              _id: existing._id,
-              publicId: it.publicId ?? existing.publicId,
-              alt: (it.alt ?? existing.alt) || "",
-            });
-            continue;
-          }
-        }
-
-        // 2.2 — NOUVEAU logo (publicId requis à ce stade)
-        if (it.publicId) {
-          next.push({ publicId: it.publicId, alt: it.alt || "" });
-        }
-      }
-
-      if (replaceAll) {
-        // mode remplacement total → on supprime ce qui disparaît
-        const prevSet = new Set(current.map((l) => l.publicId));
-        const nextSet = new Set(next.map((l) => l.publicId));
-        const toDelete = [...prevSet].filter((pid) => !nextSet.has(pid));
-
-        skill.logos = next;
-        await skill.save();
-
-        if (process.env.SUPPRESS_CLOUDINARY_DELETE !== "true") {
-          for (const pid of toDelete) {
-            try {
-              await cloudinary.uploader.destroy(pid);
-            } catch {}
-          }
-        }
-      } else {
-        // mode merge (par défaut) → on conserve ce qui n'est pas mentionné
-        //  - met à jour/ajoute ce qui est envoyé
-        //  - garde tous les autres logos existants
-        const nextPidSet = new Set(next.map((l) => l.publicId));
-        const kept = current.filter((l) => !nextPidSet.has(l.publicId)); // ceux non mentionnés
-        skill.logos = [...kept, ...next]; // ordre: on garde les anciens puis on ajoute/maj à la fin
-        await skill.save();
-      }
-    } else {
-      // rien sur logos → juste save des champs simples
-      await skill.save();
+    // ajouts via upload
+    if (Array.isArray(req.uploadedImages) && req.uploadedImages.length) {
+      const news = req.uploadedImages.map(x => ({
+        url: x.url, deleteUrl: x.deleteUrl, alt: body.defaultAlt || ''
+      }));
+      doc.logos.push(...news);
     }
 
-    res.json(skill);
-  } catch (e) {
-    next(e);
-  }
+    // ajouts via URLs
+    const addLogos = toArray(body.addLogos);
+    addLogos.forEach(x => { if (x?.url) doc.logos.push({ url: x.url, alt: x.alt || '' }); });
+
+    // MAJ alt par _id
+    const updates = toArray(body.updateAlts);
+    updates.forEach(u => {
+      const item = doc.logos.id(u?._id);
+      if (item && u.alt !== undefined) item.alt = u.alt;
+    });
+
+    // suppressions
+    const removeIds = toArray(body.removeLogoIds);
+    if (removeIds.length) {
+      const toDel = [];
+      doc.logos = doc.logos.filter(l => {
+        if (removeIds.includes(String(l._id))) {
+          if (l.deleteUrl) toDel.push(l.deleteUrl);
+          return false;
+        }
+        return true;
+      });
+      toDel.forEach(u => deleteViaDeleteUrl(u).catch(() => {}));
+    }
+
+    await doc.save();
+    res.json(doc);
+  } catch (e) { next(e); }
 }
 
-module.exports = {
-  listSkills,
-  updateSkill,
-  getSkillById,
-};
+// DELETE /api/skills/:id/logos/:logoId
+async function deleteSkillLogo(req, res, next) {
+  try {
+    const { id, logoId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(400);
+    const doc = await Skill.findById(id);
+    if (!doc) return res.sendStatus(404);
+
+    const l = doc.logos.id(logoId);
+    if (!l) return res.sendStatus(404);
+
+    const del = l.deleteUrl;
+    l.deleteOne();
+    await doc.save();
+
+    if (del) deleteViaDeleteUrl(del).catch(() => {});
+    res.sendStatus(204);
+  } catch (e) { next(e); }
+}
+
+module.exports = { listSkills, getSkillById, createSkill, updateSkill, deleteSkillLogo };

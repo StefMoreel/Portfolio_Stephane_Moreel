@@ -1,32 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import SoftSkillsCard from "./SoftSkillCard.jsx";
-import { API_ROUTES, CDN } from "../utils/constants";
+import { API_ROUTES } from "../utils/constants";
 
 function SoftSkills() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
-  const USE_PROXY = import.meta.env.VITE_USE_IMAGE_PROXY === 'true';
-
-  // URL builder: préfère le proxy si activé, sinon Cloudinary direct
-  const makeImgUrl = useMemo(() => {
-    return (publicId, { w = 60, h = 60, fit = "fit" } = {}) => {
-      if (!publicId) return "";
-      if (/^https?:\/\//i.test(publicId)) return publicId; // déjà une URL (ex: backend a mis .url)
-
-      const t = ["f_auto","q_auto","dpr_auto",`c_${fit}`,`w_${w}`,`h_${h}`].join(",");
-
-      // → Proxy d’images (depuis ton domaine backend) : pas de cookies tiers
-      if (USE_PROXY) return API_ROUTES.CDN(publicId, t);
-
-      // → Cloudinary direct (fallback)
-      if (!CDN.CLOUD_NAME) return "";
-      return `https://res.cloudinary.com/${CDN.CLOUD_NAME}/image/upload/${t}/${publicId}`;
-    };
-  }, [USE_PROXY]);
-
-  useEffect(() => {
+ useEffect(() => {
     const ac = new AbortController();
     (async () => {
       try {
@@ -82,10 +63,10 @@ function SoftSkills() {
         <div className="mx-10 md:mx-30 lg:mx-20 xl:mx-60 mt-8 lg:my-20 grid gap-6 grid-cols-2 lg:grid-cols-3 items-stretch justify-items-center">
           {items.map((softskill) => {
             const iconUrl =
-              softskill.logo?.url || // déjà fourni par le backend ? parfait
-              (softskill.logo?.publicId ? makeImgUrl(softskill.logo.publicId, { w: 48, h: 48, fit: "fit" }) : "");
+              softskill.logo?.url || "";
 
             return (
+              
               <SoftSkillsCard
                 key={softskill._id}
                 title={softskill.title}

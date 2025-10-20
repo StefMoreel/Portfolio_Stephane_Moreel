@@ -1,19 +1,29 @@
-const { Router } = require("express");
-const router = Router();
+// backend/Routes/Projects.routes.js
+const express = require('express');
+const router = express.Router();
 
-const { imageOptions } = require("../middlewares/imagesOptions"); // si tu passes w/h/fit dans la query
 const {
   listProjects,
   getProjectById,
   createProject,
   updateProject,
-  bulkInsertProjects,
-} = require("../controllers/projects.controller");
+  deleteProject,
+} = require('../controllers/projects.controller');
 
-router.get("/", imageOptions, listProjects);
-router.get("/:id", imageOptions, getProjectById);
-router.post("/", createProject);
-router.put("/:id", updateProject);
-router.post("/bulk", bulkInsertProjects);
+const { upload, uploadToImgbb } = require('../middlewares/uploadImgbb');
+
+// GET
+router.get('/', listProjects);
+router.get('/:id', getProjectById);
+
+// POST (multipart OU JSON)
+// multipart: field file = image
+router.post('/', upload.single('image'), uploadToImgbb, createProject);
+
+// PUT (remplacement image si fichier, ou mise à jour JSON)
+router.put('/:id', upload.single('image'), uploadToImgbb, updateProject);
+
+// DELETE projet + tentative suppression image imgbb
+router.delete('/:id', deleteProject);
 
 module.exports = router;

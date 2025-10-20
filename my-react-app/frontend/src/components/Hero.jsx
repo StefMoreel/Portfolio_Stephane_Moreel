@@ -5,16 +5,10 @@ import { FaGithub } from "react-icons/fa6";
 import Button from "./HeroButtons.jsx";
 import Links from "./Links.jsx";
 
-import { API_ROUTES, CDN } from "../utils/constants";
-import { makeImgUrl } from "../utils/img.js";
-
 function Hero() {
   const pdfURL = "/CV_STEPHANE_MOREEL 092025 V2.pdf";
 
-  // le chemin Cloudinary (avec la version) devient le "publicId" pour le proxy
-  const photoPublicId = "photo_sm_portfolio_ztg9oc_k3ssqm";
-
-  const photoURL = makeImgUrl(photoPublicId, { w: 234, h: 317, fit: "fill", extra: ["g_auto"] });
+  const photoURL = "https://i.ibb.co/ccpXtcSj/photo-sm-portfolio.webp"
 
 
   return (
