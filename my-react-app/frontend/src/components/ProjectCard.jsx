@@ -7,7 +7,7 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
   const buttonText = isCollapsed ? "Moins de détails" : "Plus de détails";
 
   // Hauteur commune quand c'est ouvert (ajuste si besoin)
-  const OPEN_H = 260; // px
+  const OPEN_H = 350; // px
 
   return (
     <div
@@ -61,13 +61,13 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
           style={{ maxHeight: isCollapsed ? OPEN_H : 0 }}
         >
           <div
-            className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4"
+            className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4 justify-around"
             style={{ height: OPEN_H, overflowY: "auto" }}
           >
-            <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">
+            <h3 className="mx-3">
               {title}
             </h3>
-            <p className="font-semibold text-[12px] lg:text-[18px]">
+            <p className="font-semibold text-[12px] md:text-[18px]">
               {description}
             </p>
 
@@ -76,7 +76,7 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
                 {tags.map((t, i) => (
                   <li
                     key={`${t}-${i}`}
-                    className="px-3 py-1 rounded-full text-xs lg:text-sm bg-black text-white"
+                    className="px-3 py-1 rounded-full text-xs md:text-sm lg:text-[14px] bg-black text-white"
                   >
                     {t}
                   </li>

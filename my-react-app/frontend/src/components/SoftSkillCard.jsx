@@ -27,6 +27,7 @@ function SoftSkillCard({ icon, title, description }) {
           <div
             className="
               md:min-h-[250px]
+              lg:min-h-[275px]
               xl:min-h-[300px]
               absolute inset-0 rounded-2xl
               bg-gradient-to-r from-black to-yellow md:bg-none md:bg-black
@@ -37,7 +38,7 @@ function SoftSkillCard({ icon, title, description }) {
               md:static md:[backface-visibility:visible]
             "
           >
-            <div className="flex flex-col items-center justify-center gap-6">
+            <div className="flex flex-col items-center justify-center gap-3">
               {icon}
               <h4 className="text-[16px] md:text-xl lg:text-2xl font-semibold mb-2 lg:my-6">
                 {title}
