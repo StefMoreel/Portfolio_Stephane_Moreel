@@ -7,7 +7,12 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
   const buttonText = isCollapsed ? "Moins de détails" : "Plus de détails";
 
   // Hauteur commune quand c'est ouvert (ajuste si besoin)
-  const OPEN_H = 350; // px
+  const OPEN_H = {
+    sm: 200,
+    md: 250,
+    lg: 350,
+
+  };
 
   return (
     <div
@@ -58,11 +63,22 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
             transition-[max-height,opacity,visibility] duration-300 ease-in-out
             ${isCollapsed ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
-          style={{ maxHeight: isCollapsed ? OPEN_H : 0 }}
+           style={{
+    maxHeight: isCollapsed ?
+      (window.innerWidth < 640 ? OPEN_H.sm :
+       window.innerWidth < 1024 ? OPEN_H.md :
+       OPEN_H.lg) : 0
+  }}
         >
           <div
             className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4 justify-around"
-            style={{ height: OPEN_H, overflowY: "auto" }}
+                style={{
+      height: isCollapsed ?
+        (window.innerWidth < 640 ? OPEN_H.sm :
+         window.innerWidth < 1024 ? OPEN_H.md :
+         OPEN_H.lg) : 0,
+      overflowY: "auto"
+    }}
           >
             <h3 className="mx-3">
               {title}
