@@ -11,7 +11,6 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
     sm: 200,
     md: 250,
     lg: 350,
-
   };
 
   return (
@@ -23,7 +22,7 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
       <div className="relative w-full overflow-hidden rounded-t-lg">
         <img
           src={image}
-          alt={alt || title} 
+          alt={alt || title}
           className="block w-full aspect-video object-cover"
           loading="lazy"
           decoding="async"
@@ -45,7 +44,7 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
         </div>
       </div>
 
-      {/* Panneau repliable — CSS only (pas de scrollHeight) */}
+      {/* Panneau repliable */}
       <div
         className={`
           flex flex-col items-center justify-center w-full rounded-b-lg
@@ -63,26 +62,30 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
             transition-[max-height,opacity,visibility] duration-300 ease-in-out
             ${isCollapsed ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
-           style={{
-    maxHeight: isCollapsed ?
-      (window.innerWidth < 640 ? OPEN_H.sm :
-       window.innerWidth < 1024 ? OPEN_H.md :
-       OPEN_H.lg) : 0
-  }}
+          style={{
+            maxHeight: isCollapsed
+              ? window.innerWidth < 640
+                ? OPEN_H.sm
+                : window.innerWidth < 1024
+                ? OPEN_H.md
+                : OPEN_H.lg
+              : 0,
+          }}
         >
           <div
             className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4 justify-around"
-                style={{
-      height: isCollapsed ?
-        (window.innerWidth < 640 ? OPEN_H.sm :
-         window.innerWidth < 1024 ? OPEN_H.md :
-         OPEN_H.lg) : 0,
-      overflowY: "auto"
-    }}
+            style={{
+              height: isCollapsed
+                ? window.innerWidth < 640
+                  ? OPEN_H.sm
+                  : window.innerWidth < 1024
+                  ? OPEN_H.md
+                  : OPEN_H.lg
+                : 0,
+              overflowY: "auto",
+            }}
           >
-            <h3 className="mx-3">
-              {title}
-            </h3>
+            <h3 className="mx-3">{title}</h3>
             <p className="font-semibold text-[12px] md:text-[18px]">
               {description}
             </p>

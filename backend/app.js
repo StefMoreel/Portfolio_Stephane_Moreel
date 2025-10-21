@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const path = require("node:path");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const bodyParser = require('body-parser');
 
 // Connexion à MongoDB
 mongoose
@@ -19,6 +20,8 @@ mongoose
   );
 
 const app = express();
+
+app.use(bodyParser.json());
 
 // 0) Confiance proxy (Render) -> IP correcte pour le rate-limit
 app.set("trust proxy", 1);

@@ -19,7 +19,7 @@ function NavBar() {
   ];
 
   return (
-    <section className="bg-black flex md:justify-between items-center md:px-20">
+    <section className="bg-black flex md:justify-between items-center md:px-20 sticky top-0">
       <nav className="bg-black text-white p-5 md:p-10">
         {/* Desktop Menu */}
         <div className="hidden md:flex justify-between">
