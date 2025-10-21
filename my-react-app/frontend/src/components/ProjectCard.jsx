@@ -47,75 +47,65 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
       {/* Panneau repliable */}
       <div
         className={`
-          flex flex-col items-center justify-center w-full rounded-b-lg
-          transition-colors duration-300
-          ${
-            isCollapsed
-              ? "bg-gradient-to-t from-black to-yellow"
-              : "bg-transparent"
-          }
-        `}
+    w-full rounded-b-lg
+    transition-colors duration-500
+    ${isCollapsed ? "bg-gradient-to-t from-black to-yellow" : "bg-transparent"}
+  `}
       >
         <div
           className={`
-            overflow-hidden
-            transition-[max-height,opacity,visibility] duration-300 ease-in-out
-            ${isCollapsed ? "opacity-100 visible" : "opacity-0 invisible"}
-          `}
-          style={{
-            maxHeight: isCollapsed
-              ? window.innerWidth < 640
-                ? OPEN_H.sm
-                : window.innerWidth < 1024
-                ? OPEN_H.md
-                : OPEN_H.lg
-              : 0,
-          }}
+      grid
+      transition-[grid-template-rows] 
+      duration-500 md:duration-700
+      ease-[cubic-bezier(0.22,1,0.36,1)]  /* easing doux */
+      ${isCollapsed ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+      will-change-[grid-template-rows]
+    `}
         >
-          <div
-            className="flex flex-col text-center text-black gap-2 p-2 lg:pb-4 justify-around"
-            style={{
-              height: isCollapsed
-                ? window.innerWidth < 640
-                  ? OPEN_H.sm
-                  : window.innerWidth < 1024
-                  ? OPEN_H.md
-                  : OPEN_H.lg
-                : 0,
-              overflowY: "auto",
-            }}
-          >
-            <h3 className="mx-3">{title}</h3>
-            <p className="font-semibold text-[12px] md:text-[18px]">
-              {description}
-            </p>
-
-            {Array.isArray(tags) && tags.length > 0 && (
-              <ul className="mt-3 flex flex-wrap justify-center gap-2">
-                {tags.map((t, i) => (
-                  <li
-                    key={`${t}-${i}`}
-                    className="px-3 py-1 rounded-full text-xs md:text-sm lg:text-[14px] bg-black text-white"
+          <div className="overflow-hidden">
+            <div
+              className={`
+          flex flex-col items-center text-center text-black gap-2 p-3 lg:pb-4
+          transition-[opacity,transform] duration-500 md:duration-700 
+          ${
+            isCollapsed
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-1"
+          }
+        `}
+            >
+              {/* ... ton contenu: titre, description, tags, bouton, etc. ... */}
+              <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">
+                {title}
+              </h3>
+              <p className="font-semibold text-[12px] lg:text-[18px]">
+                {description}
+              </p>
+              {Array.isArray(tags) && tags.length > 0 && (
+                <ul className="mt-3 flex flex-wrap justify-center gap-2">
+                  {tags.map((t, i) => (
+                    <li
+                      key={`${t}-${i}`}
+                      className="px-3 py-1 rounded-full text-xs lg:text-sm bg-black text-white"
+                    >
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {url && (
+                <div className="mt-4">
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center min-w-[250px] h-10 rounded-full bg-gradient-to-b from-black to-yellow text-white font-semibold text-[16px] lg:text-base hover:opacity-90 transition"
                   >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {url && (
-              <div className="mt-4">
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Voir le projet ${title}`}
-                  className="inline-flex items-center justify-center min-w-[250px] h-10 rounded-full bg-gradient-to-b from-black to-yellow text-white font-semibold text-[16px] lg:text-base hover:opacity-90 transition"
-                >
-                  Voir le projet
-                </a>
-              </div>
-            )}
+                    Voir le projet
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
