@@ -7,6 +7,10 @@ function Projects() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
+  const DISABLED_MOBILE_PROJECTS = new Set([
+  "68ee43cf33d02f748835679f", // ← l'id à désactiver en mobile
+]);
+
   useEffect(() => {
   const ac = new AbortController();
   (async () => {
@@ -52,6 +56,7 @@ function Projects() {
               tags={(p.tags || []).map((tag) => tag)}
               url={p.url}
               alt={p.image?.alt || ''}
+              disableMobileLink={DISABLED_MOBILE_PROJECTS.has(p._id)}
             />
           );
           

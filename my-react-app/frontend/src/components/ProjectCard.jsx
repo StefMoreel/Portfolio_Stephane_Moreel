@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
-function ProjectCard({ image, alt, title, description, tags, url }) {
+function ProjectCard({ image, alt, title, description, tags, url, disableMobileLink }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => setIsCollapsed((v) => !v);
   const buttonText = isCollapsed ? "Moins de détails" : "Plus de détails";
-
-  // Hauteur commune quand c'est ouvert (ajuste si besoin)
-  const OPEN_H = {
-    sm: 200,
-    md: 250,
-    lg: 350,
-  };
 
   return (
     <div
@@ -44,43 +37,35 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
         </div>
       </div>
 
-      {/* Panneau repliable */}
+      {/* Panneau repliable (grid-rows animation) */}
       <div
         className={`
-    w-full rounded-b-lg
-    transition-colors duration-500
-    ${isCollapsed ? "bg-gradient-to-t from-black to-yellow" : "bg-transparent"}
-  `}
+          w-full rounded-b-lg
+          transition-colors duration-500
+          ${isCollapsed ? "bg-gradient-to-t from-black to-yellow" : "bg-transparent"}
+        `}
       >
         <div
           className={`
-      grid
-      transition-[grid-template-rows] 
-      duration-500 md:duration-700
-      ease-[cubic-bezier(0.22,1,0.36,1)]  /* easing doux */
-      ${isCollapsed ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
-      will-change-[grid-template-rows]
-    `}
+            grid
+            transition-[grid-template-rows]
+            duration-500 md:duration-700
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            ${isCollapsed ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+            will-change-[grid-template-rows]
+          `}
         >
           <div className="overflow-hidden">
             <div
               className={`
-          flex flex-col items-center text-center text-black gap-2 p-3 lg:pb-4
-          transition-[opacity,transform] duration-500 md:duration-700 
-          ${
-            isCollapsed
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 -translate-y-1"
-          }
-        `}
+                flex flex-col items-center text-center text-black gap-2 p-3 lg:pb-4
+                transition-[opacity,transform] duration-500 md:duration-700
+                ${isCollapsed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}
+              `}
             >
-              {/* ... ton contenu: titre, description, tags, bouton, etc. ... */}
-              <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">
-                {title}
-              </h3>
-              <p className="font-semibold text-[12px] lg:text-[18px]">
-                {description}
-              </p>
+              <h3 className="text-[18px] lg:text-[24px] font-bold mx-4">{title}</h3>
+              <p className="font-semibold text-[12px] lg:text-[18px]">{description}</p>
+
               {Array.isArray(tags) && tags.length > 0 && (
                 <ul className="mt-3 flex flex-wrap justify-center gap-2">
                   {tags.map((t, i) => (
@@ -93,18 +78,63 @@ function ProjectCard({ image, alt, title, description, tags, url }) {
                   ))}
                 </ul>
               )}
-              {url && (
-                <div className="mt-4">
+
+              {/* Bouton / Lien */}
+              <div className="mt-4 flex justify-center">
+                {/* MOBILE (< md) */}
+                {disableMobileLink ? (
+                  <span
+                    className="
+                      inline-flex md:hidden items-center justify-center
+                      min-w-[250px] h-10 rounded-full
+                      bg-gradient-to-b from-black to-yellow
+                      text-white font-semibold text-[16px]
+                      opacity-60 cursor-not-allowed select-none
+                    "
+                    role="link"
+                    aria-disabled="true"
+                    title="Lien indisponible sur mobile"
+                  >
+                    Voir le projet
+                  </span>
+                ) : (
+                  url && (
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="
+                        inline-flex md:hidden items-center justify-center
+                        min-w-[250px] h-10 rounded-full
+                        bg-gradient-to-b from-black to-yellow
+                        text-white font-semibold text-[16px]
+                        hover:opacity-90 transition
+                      "
+                    >
+                      Voir le projet
+                    </a>
+                  )
+                )}
+
+                {/* DESKTOP (md+) — toujours actif si url */}
+                {url && (
                   <a
                     href={url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center min-w-[250px] h-10 rounded-full bg-gradient-to-b from-black to-yellow text-white font-semibold text-[16px] lg:text-base hover:opacity-90 transition"
+                    className="
+                      hidden md:inline-flex items-center justify-center
+                      min-w-[250px] h-10 rounded-full
+                      bg-gradient-to-b from-black to-yellow
+                      text-white font-semibold text-[16px] lg:text-base
+                      hover:opacity-90 transition
+                    "
                   >
                     Voir le projet
                   </a>
-                </div>
-              )}
+                )}
+              </div>
+              {/* /Bouton / Lien */}
             </div>
           </div>
         </div>
